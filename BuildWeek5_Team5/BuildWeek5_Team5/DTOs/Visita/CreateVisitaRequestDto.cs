@@ -3,10 +3,9 @@
     public class CreateVisitaRequestDto
     {
         public DateOnly DataVisita { get; set; }
-
         public required string Esame { get; set; }
-
         public required string DescrizioneCura { get; set; }
-
+        public int? AnimaleId { get; set; }
+        public int? AnimaleSmarritoId { get; set; }
     }
 }

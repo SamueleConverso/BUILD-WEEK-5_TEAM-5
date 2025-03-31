@@ -80,6 +80,12 @@ namespace BuildWeek5_Team5.Controllers
         {
             try
             {
+                var vecchioAnimale = await _context.AnimaliSmarriti.FindAsync(id);
+                if (vecchioAnimale.Nome == createAnimaleSmarritoDto.Nome && vecchioAnimale.Specie == createAnimaleSmarritoDto.Specie && vecchioAnimale.Colore == createAnimaleSmarritoDto.Colore && vecchioAnimale.Microchip == createAnimaleSmarritoDto.Microchip && vecchioAnimale.NumeroMicrochip == createAnimaleSmarritoDto.NumeroMicrochip)
+                {
+                    return Ok(new AnimaleSmarritoResponse { Message = "Nessuna modifica effettuata." });
+                }
+
                 var result = await _animaleSmarritoService.Update(id, createAnimaleSmarritoDto);
 
                 return result ? Ok(new AnimaleSmarritoResponse { Message = "Animale smarrito modificato con successo" }) : BadRequest(new AnimaleSmarritoResponse { Message = "Errore nella modifica dell'animale smarrito." });

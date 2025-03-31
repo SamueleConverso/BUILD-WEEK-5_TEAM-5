@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildWeek5_Team5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250331101640_Initial")]
+    [Migration("20250331133707_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace BuildWeek5_Team5.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumeroMicrochip")
+                    b.Property<int?>("NumeroMicrochip")
                         .HasColumnType("int");
 
                     b.Property<string>("Specie")
@@ -85,7 +85,7 @@ namespace BuildWeek5_Team5.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumeroMicrochip")
+                    b.Property<int?>("NumeroMicrochip")
                         .HasColumnType("int");
 
                     b.Property<string>("Specie")
@@ -286,10 +286,10 @@ namespace BuildWeek5_Team5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RicoveroId"));
 
-                    b.Property<int>("AnimaleId")
+                    b.Property<int?>("AnimaleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AnimaleSmarritoId")
+                    b.Property<int?>("AnimaleSmarritoId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("DataFineRicovero")
@@ -333,7 +333,7 @@ namespace BuildWeek5_Team5.Migrations
                     b.Property<int>("ProdottoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RicettaMedica")
+                    b.Property<int?>("RicettaMedica")
                         .HasColumnType("int");
 
                     b.HasKey("VenditaId");
@@ -351,16 +351,14 @@ namespace BuildWeek5_Team5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VisitaId"));
 
-                    b.Property<int>("AnimaleId")
+                    b.Property<int?>("AnimaleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AnimaleSmarritoId")
+                    b.Property<int?>("AnimaleSmarritoId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("DataVisita")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("date")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("date");
 
                     b.Property<string>("DescrizioneCura")
                         .IsRequired()
@@ -504,15 +502,11 @@ namespace BuildWeek5_Team5.Migrations
                 {
                     b.HasOne("BuildWeek5_Team5.Models.Animale", "Animale")
                         .WithMany()
-                        .HasForeignKey("AnimaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnimaleId");
 
                     b.HasOne("BuildWeek5_Team5.Models.AnimaleSmarrito", "AnimaleSmarrito")
                         .WithMany()
-                        .HasForeignKey("AnimaleSmarritoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnimaleSmarritoId");
 
                     b.Navigation("Animale");
 
@@ -534,15 +528,11 @@ namespace BuildWeek5_Team5.Migrations
                 {
                     b.HasOne("BuildWeek5_Team5.Models.Animale", "Animale")
                         .WithMany("Visite")
-                        .HasForeignKey("AnimaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnimaleId");
 
                     b.HasOne("BuildWeek5_Team5.Models.AnimaleSmarrito", "AnimaleSmarrito")
                         .WithMany("Visite")
-                        .HasForeignKey("AnimaleSmarritoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnimaleSmarritoId");
 
                     b.Navigation("Animale");
 
