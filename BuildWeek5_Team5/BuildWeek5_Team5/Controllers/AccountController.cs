@@ -27,26 +27,43 @@ namespace BuildWeek5_Team5.Controllers {
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto) {
-            var user = new ApplicationUser {
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto)
+        {
+            var user = new ApplicationUser
+            {
                 FirstName = registerRequestDto.FirstName,
                 LastName = registerRequestDto.LastName,
                 Email = registerRequestDto.Email,
-                UserName = registerRequestDto.Email
+                UserName = registerRequestDto.Email,
             };
+
             var result = await _userManager.CreateAsync(user, registerRequestDto.Password);
-            if (!result.Succeeded) {
-                return BadRequest(new {
-                    message = "Errore nella registrazione"
+            if (!result.Succeeded)
+            {
+                return BadRequest(new
+                {
+                    message = "Errore nella registrazione",
+                    errors = result.Errors.Select(e => new { code = e.Code, description = e.Description }).ToList()
                 });
             }
 
             var userForRole = await _userManager.FindByEmailAsync(user.Email);
+            var roleResult = await _userManager.AddToRoleAsync(userForRole, "Farmacista");
 
-            await _userManager.AddToRoleAsync(userForRole, "Utente");
+            if (!roleResult.Succeeded)
+            {
+                await _userManager.DeleteAsync(userForRole);
+                return BadRequest(new
+                {
+                    message = "Errore nell'assegnazione del ruolo",
+                    errors = roleResult.Errors.Select(e => new { code = e.Code, description = e.Description }).ToList()
+                });
+            }
 
-            return Ok(new {
-                message = "Registrazione avvenuta con successo"
+            return Ok(new
+            {
+                message = "Registrazione avvenuta con successo",
+                role = "Farmacista"
             });
         }
 
