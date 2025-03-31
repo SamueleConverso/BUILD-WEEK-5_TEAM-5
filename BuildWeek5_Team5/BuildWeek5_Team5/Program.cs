@@ -1,5 +1,6 @@
 using BuildWeek5_Team5.Data;
 using BuildWeek5_Team5.Models;
+using BuildWeek5_Team5.Services;
 using BuildWeek5_Team5.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -70,6 +71,12 @@ builder.Services.AddAuthentication(options => {
               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection(nameof(Jwt)).GetValue<string>("SecurityKey")))
           };
       });
+
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
+builder.Services.AddScoped<SignInManager<ApplicationUser>>();
+builder.Services.AddScoped<RoleManager<ApplicationRole>>();
+builder.Services.AddScoped<AnimaleSmarritoService>();
+builder.Services.AddScoped<VisitaService>();
 
 var app = builder.Build();
 
