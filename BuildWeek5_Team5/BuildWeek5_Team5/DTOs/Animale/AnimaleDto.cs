@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BuildWeek5_Team5.DTOs.Visita;
 
 namespace BuildWeek5_Team5.DTOs.Animale {
     public class AnimaleDto {
@@ -46,7 +47,7 @@ namespace BuildWeek5_Team5.DTOs.Animale {
             get; set;
         }
 
-        public ICollection<VisitaDto>? Visite {
+        public ICollection<VisitaAnimaleDto>? Visite {
             get; set;
         }
     }

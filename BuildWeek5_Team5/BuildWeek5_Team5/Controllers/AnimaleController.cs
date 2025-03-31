@@ -1,4 +1,5 @@
 ﻿using BuildWeek5_Team5.DTOs.Animale;
+using BuildWeek5_Team5.DTOs.Visita;
 using BuildWeek5_Team5.Models;
 using BuildWeek5_Team5.Services;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@ namespace BuildWeek5_Team5.Controllers {
                 Colore = createAnimaleRequestDto.Colore,
                 DataNascita = createAnimaleRequestDto.DataNascita,
                 Microchip = createAnimaleRequestDto.Microchip,
-                NumeroMicrochip = createAnimaleRequestDto.Microchip ? createAnimaleRequestDto.NumeroMicrochip : null,
+                NumeroMicrochip = createAnimaleRequestDto.Microchip ? createAnimaleRequestDto?.NumeroMicrochip : null,
                 NominativoProprietario = createAnimaleRequestDto.NominativoProprietario
             };
 
@@ -66,7 +67,7 @@ namespace BuildWeek5_Team5.Controllers {
                 Microchip = a.Microchip,
                 NumeroMicrochip = a.NumeroMicrochip,
                 NominativoProprietario = a.NominativoProprietario,
-                Visite = a.Visite != null ? a.Visite.Select(v => new VisitaDto {
+                Visite = a.Visite != null ? a.Visite.Select(v => new VisitaAnimaleDto {
                     VisitaId = v.VisitaId,
                     DataVisita = v.DataVisita,
                     Esame = v.Esame,
@@ -101,7 +102,7 @@ namespace BuildWeek5_Team5.Controllers {
                 Microchip = animaleToFind.Microchip,
                 NumeroMicrochip = animaleToFind.NumeroMicrochip,
                 NominativoProprietario = animaleToFind.NominativoProprietario,
-                Visite = animaleToFind.Visite != null ? animaleToFind.Visite.Select(v => new VisitaDto {
+                Visite = animaleToFind.Visite != null ? animaleToFind.Visite.Select(v => new VisitaAnimaleDto {
                     VisitaId = v.VisitaId,
                     DataVisita = v.DataVisita,
                     Esame = v.Esame,
