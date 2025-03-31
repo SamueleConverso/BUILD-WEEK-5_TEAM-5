@@ -29,7 +29,7 @@ namespace BuildWeek5_Team5.Models {
             get; set;
         }
 
-        public int NumeroMicrochip {
+        public int? NumeroMicrochip {
             get; set;
         }
 

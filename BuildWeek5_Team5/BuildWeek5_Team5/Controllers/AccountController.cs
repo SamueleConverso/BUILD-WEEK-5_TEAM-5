@@ -43,7 +43,7 @@ namespace BuildWeek5_Team5.Controllers {
 
             var userForRole = await _userManager.FindByEmailAsync(user.Email);
 
-            await _userManager.AddToRoleAsync(userForRole, "Utente");
+            await _userManager.AddToRoleAsync(userForRole!, "Utente");
 
             return Ok(new {
                 message = "Registrazione avvenuta con successo"

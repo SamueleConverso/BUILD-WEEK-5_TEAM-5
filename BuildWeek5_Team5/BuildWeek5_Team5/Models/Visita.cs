@@ -29,7 +29,7 @@ namespace BuildWeek5_Team5.Models {
         }
 
         [ForeignKey("AnimaleId")]
-        public Animale Animale {
+        public Animale? Animale {
             get; set;
         }
 
@@ -38,7 +38,7 @@ namespace BuildWeek5_Team5.Models {
         }
 
         [ForeignKey("AnimaleSmarritoId")]
-        public AnimaleSmarrito AnimaleSmarrito {
+        public AnimaleSmarrito? AnimaleSmarrito {
             get; set;
         }
     }

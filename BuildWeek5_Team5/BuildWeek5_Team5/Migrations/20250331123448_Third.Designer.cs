@@ -4,6 +4,7 @@ using BuildWeek5_Team5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildWeek5_Team5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250331123448_Third")]
+    partial class Third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace BuildWeek5_Team5.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NumeroMicrochip")
+                    b.Property<int>("NumeroMicrochip")
                         .HasColumnType("int");
 
                     b.Property<string>("Specie")
@@ -283,10 +286,10 @@ namespace BuildWeek5_Team5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RicoveroId"));
 
-                    b.Property<int?>("AnimaleId")
+                    b.Property<int>("AnimaleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AnimaleSmarritoId")
+                    b.Property<int>("AnimaleSmarritoId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("DataFineRicovero")
@@ -330,7 +333,7 @@ namespace BuildWeek5_Team5.Migrations
                     b.Property<int>("ProdottoId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RicettaMedica")
+                    b.Property<int>("RicettaMedica")
                         .HasColumnType("int");
 
                     b.HasKey("VenditaId");
@@ -499,11 +502,15 @@ namespace BuildWeek5_Team5.Migrations
                 {
                     b.HasOne("BuildWeek5_Team5.Models.Animale", "Animale")
                         .WithMany()
-                        .HasForeignKey("AnimaleId");
+                        .HasForeignKey("AnimaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BuildWeek5_Team5.Models.AnimaleSmarrito", "AnimaleSmarrito")
                         .WithMany()
-                        .HasForeignKey("AnimaleSmarritoId");
+                        .HasForeignKey("AnimaleSmarritoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Animale");
 
