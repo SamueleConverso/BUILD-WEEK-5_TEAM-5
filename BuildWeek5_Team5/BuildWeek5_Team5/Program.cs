@@ -72,11 +72,14 @@ builder.Services.AddAuthentication(options => {
           };
       });
 
+
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 builder.Services.AddScoped<RoleManager<ApplicationRole>>();
 builder.Services.AddScoped<AnimaleSmarritoService>();
 builder.Services.AddScoped<VisitaService>();
+builder.Services.AddScoped<AnimaleService>();
+
 
 var app = builder.Build();
 
