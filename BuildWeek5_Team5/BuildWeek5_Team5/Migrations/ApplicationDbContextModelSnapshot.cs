@@ -289,7 +289,7 @@ namespace BuildWeek5_Team5.Migrations
                     b.Property<int?>("AnimaleSmarritoId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("DataFineRicovero")
+                    b.Property<DateOnly?>("DataFineRicovero")
                         .HasColumnType("date");
 
                     b.Property<DateOnly>("DataInizioRicovero")

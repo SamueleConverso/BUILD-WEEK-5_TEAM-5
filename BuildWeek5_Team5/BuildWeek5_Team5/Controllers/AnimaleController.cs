@@ -24,7 +24,7 @@ namespace BuildWeek5_Team5.Controllers {
                 Colore = createAnimaleRequestDto.Colore,
                 DataNascita = createAnimaleRequestDto.DataNascita,
                 Microchip = createAnimaleRequestDto.Microchip,
-                NumeroMicrochip = createAnimaleRequestDto.Microchip ? createAnimaleRequestDto?.NumeroMicrochip : null,
+                NumeroMicrochip = createAnimaleRequestDto.Microchip ? createAnimaleRequestDto.NumeroMicrochip : null,
                 NominativoProprietario = createAnimaleRequestDto.NominativoProprietario
             };
 

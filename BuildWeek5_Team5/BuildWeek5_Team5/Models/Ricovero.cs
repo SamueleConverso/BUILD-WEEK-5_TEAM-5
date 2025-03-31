@@ -19,7 +19,7 @@ namespace BuildWeek5_Team5.Models {
             get; set;
         }
 
-        public DateOnly DataFineRicovero {
+        public DateOnly? DataFineRicovero {
             get; set;
         }
 

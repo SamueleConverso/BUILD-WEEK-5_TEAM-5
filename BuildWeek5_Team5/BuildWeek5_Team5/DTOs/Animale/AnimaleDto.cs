@@ -4,7 +4,7 @@ using BuildWeek5_Team5.DTOs.Visita;
 namespace BuildWeek5_Team5.DTOs.Animale {
     public class AnimaleDto {
         [Required]
-        public required int AnimaleId {
+        public int? AnimaleId {
             get; set;
         }
 

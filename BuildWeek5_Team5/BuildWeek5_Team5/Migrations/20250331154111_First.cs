@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BuildWeek5_Team5.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,7 @@ namespace BuildWeek5_Team5.Migrations
                     Colore = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataNascita = table.Column<DateOnly>(type: "date", nullable: false),
                     Microchip = table.Column<bool>(type: "bit", nullable: false),
-                    NumeroMicrochip = table.Column<int>(type: "int", nullable: false),
+                    NumeroMicrochip = table.Column<int>(type: "int", nullable: true),
                     NominativoProprietario = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -41,7 +41,7 @@ namespace BuildWeek5_Team5.Migrations
                     Specie = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Colore = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Microchip = table.Column<bool>(type: "bit", nullable: false),
-                    NumeroMicrochip = table.Column<int>(type: "int", nullable: false)
+                    NumeroMicrochip = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -111,9 +111,9 @@ namespace BuildWeek5_Team5.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataInizioRicovero = table.Column<DateOnly>(type: "date", nullable: false, defaultValueSql: "GETDATE()"),
-                    DataFineRicovero = table.Column<DateOnly>(type: "date", nullable: false),
-                    AnimaleId = table.Column<int>(type: "int", nullable: false),
-                    AnimaleSmarritoId = table.Column<int>(type: "int", nullable: false)
+                    DataFineRicovero = table.Column<DateOnly>(type: "date", nullable: true),
+                    AnimaleId = table.Column<int>(type: "int", nullable: true),
+                    AnimaleSmarritoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -122,14 +122,12 @@ namespace BuildWeek5_Team5.Migrations
                         name: "FK_Ricoveri_AnimaliSmarriti_AnimaleSmarritoId",
                         column: x => x.AnimaleSmarritoId,
                         principalTable: "AnimaliSmarriti",
-                        principalColumn: "AnimaleSmarritoId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "AnimaleSmarritoId");
                     table.ForeignKey(
                         name: "FK_Ricoveri_Animali_AnimaleId",
                         column: x => x.AnimaleId,
                         principalTable: "Animali",
-                        principalColumn: "AnimaleId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "AnimaleId");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,11 +136,11 @@ namespace BuildWeek5_Team5.Migrations
                 {
                     VisitaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DataVisita = table.Column<DateOnly>(type: "date", nullable: false, defaultValueSql: "GETDATE()"),
+                    DataVisita = table.Column<DateOnly>(type: "date", nullable: false),
                     Esame = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescrizioneCura = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnimaleId = table.Column<int>(type: "int", nullable: false),
-                    AnimaleSmarritoId = table.Column<int>(type: "int", nullable: false)
+                    AnimaleId = table.Column<int>(type: "int", nullable: true),
+                    AnimaleSmarritoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,14 +149,12 @@ namespace BuildWeek5_Team5.Migrations
                         name: "FK_Visite_AnimaliSmarriti_AnimaleSmarritoId",
                         column: x => x.AnimaleSmarritoId,
                         principalTable: "AnimaliSmarriti",
-                        principalColumn: "AnimaleSmarritoId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "AnimaleSmarritoId");
                     table.ForeignKey(
                         name: "FK_Visite_Animali_AnimaleId",
                         column: x => x.AnimaleId,
                         principalTable: "Animali",
-                        principalColumn: "AnimaleId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "AnimaleId");
                 });
 
             migrationBuilder.CreateTable(
@@ -302,7 +298,7 @@ namespace BuildWeek5_Team5.Migrations
                     DataVendita = table.Column<DateOnly>(type: "date", nullable: false, defaultValueSql: "GETDATE()"),
                     CodiceFiscaleCliente = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProdottoId = table.Column<int>(type: "int", nullable: false),
-                    RicettaMedica = table.Column<int>(type: "int", nullable: false)
+                    RicettaMedica = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
