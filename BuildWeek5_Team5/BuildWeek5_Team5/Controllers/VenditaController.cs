@@ -4,25 +4,23 @@ using BuildWeek5_Team5.DTOs.Vendite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BuildWeek5_Team5.DTOs.Prodotto;
 
 namespace BuildWeek5_Team5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Farmacista")]
     public class VenditeController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<VenditeController> _logger;
 
-        public VenditeController(ApplicationDbContext context, ILogger<VenditeController> logger)
+        public VenditeController(ApplicationDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         [HttpPost]
-        [Authorize(Roles = "Farmacista")]
         public async Task<IActionResult> CreateVendita([FromBody] CreateVenditaRequestDto request)
         {
             try
@@ -52,18 +50,14 @@ namespace BuildWeek5_Team5.Controllers
                     Message = "Vendita registrata con successo!",
                 });
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, "Errore durante la registrazione della vendita");
-                return StatusCode(500, new CreateVenditaResponse
-                {
-                    Message = "Si è verificato un errore durante la registrazione della vendita"
-                });
+                return BadRequest(new CreateVenditaResponse { Message = "Qualcosa è andato storto." });
+
             }
         }
 
         [HttpGet]
-        [Authorize(Roles = "Farmacista")]
         public async Task<IActionResult> GetAllVendite()
         {
             try
@@ -89,15 +83,13 @@ namespace BuildWeek5_Team5.Controllers
                     Vendite = vendite
                 });
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, "Errore durante il recupero delle vendite");
-                return StatusCode(500, new { Message = "Si è verificato un errore durante il recupero delle vendite" });
+                return BadRequest(new CreateVenditaResponse { Message = "Qualcosa è andato storto." });
             }
         }
 
         [HttpGet("data/{data}")]
-        [Authorize(Roles = "Farmacista")]
         public async Task<IActionResult> GetVenditeByData(string data)
         {
             try
@@ -131,15 +123,13 @@ namespace BuildWeek5_Team5.Controllers
                     Vendite = vendite
                 });
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, $"Errore durante il recupero delle vendite per la data {data}");
-                return StatusCode(500, new { Message = "Si è verificato un errore durante il recupero delle vendite" });
+                return BadRequest(new CreateVenditaResponse { Message = "Qualcosa è andato storto." });
             }
         }
 
         [HttpGet("cliente/{codiceFiscale}")]
-        [Authorize(Roles = "Farmacista")]
         public async Task<IActionResult> GetVenditeByCliente(string codiceFiscale)
         {
             try
@@ -168,10 +158,9 @@ namespace BuildWeek5_Team5.Controllers
                     Vendite = vendite
                 });
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, $"Errore durante il recupero delle vendite per il cliente {codiceFiscale}");
-                return StatusCode(500, new { Message = "Si è verificato un errore durante il recupero delle vendite" });
+                return BadRequest(new CreateVenditaResponse { Message = "Qualcosa è andato storto." });
             }
         }
     }

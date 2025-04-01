@@ -4,6 +4,7 @@ using BuildWeek5_Team5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildWeek5_Team5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250401104132_Third")]
+    partial class Third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,6 +241,29 @@ namespace BuildWeek5_Team5.Migrations
                     b.ToTable("Armadietti");
                 });
 
+            modelBuilder.Entity("BuildWeek5_Team5.Models.ArmadiettoCassetto", b =>
+                {
+                    b.Property<int>("ArmadiettoCassettoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArmadiettoCassettoId"));
+
+                    b.Property<int>("ArmadiettoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CassettoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ArmadiettoCassettoId");
+
+                    b.HasIndex("ArmadiettoId");
+
+                    b.HasIndex("CassettoId");
+
+                    b.ToTable("ArmadiettiCassetti");
+                });
+
             modelBuilder.Entity("BuildWeek5_Team5.Models.Cassetto", b =>
                 {
                     b.Property<int>("CassettoId")
@@ -246,15 +272,10 @@ namespace BuildWeek5_Team5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CassettoId"));
 
-                    b.Property<int>("ArmadiettoId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumeroCassetto")
                         .HasColumnType("int");
 
                     b.HasKey("CassettoId");
-
-                    b.HasIndex("ArmadiettoId");
 
                     b.ToTable("Cassetti");
                 });
@@ -266,6 +287,9 @@ namespace BuildWeek5_Team5.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdottoId"));
+
+                    b.Property<int>("ArmadiettoId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CassettoId")
                         .HasColumnType("int");
@@ -295,6 +319,9 @@ namespace BuildWeek5_Team5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProdottoId");
+
+                    b.HasIndex("ArmadiettoId")
+                        .IsUnique();
 
                     b.HasIndex("CassettoId");
 
@@ -514,24 +541,40 @@ namespace BuildWeek5_Team5.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BuildWeek5_Team5.Models.Cassetto", b =>
+            modelBuilder.Entity("BuildWeek5_Team5.Models.ArmadiettoCassetto", b =>
                 {
                     b.HasOne("BuildWeek5_Team5.Models.Armadietto", "Armadietto")
-                        .WithMany("Cassetti")
+                        .WithMany("ArmadiettiCassetti")
                         .HasForeignKey("ArmadiettoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BuildWeek5_Team5.Models.Cassetto", "Cassetto")
+                        .WithMany("ArmadiettiCassetti")
+                        .HasForeignKey("CassettoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Armadietto");
+
+                    b.Navigation("Cassetto");
                 });
 
             modelBuilder.Entity("BuildWeek5_Team5.Models.Prodotto", b =>
                 {
+                    b.HasOne("BuildWeek5_Team5.Models.Armadietto", "Armadietto")
+                        .WithOne("Prodotto")
+                        .HasForeignKey("BuildWeek5_Team5.Models.Prodotto", "ArmadiettoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BuildWeek5_Team5.Models.Cassetto", "Cassetto")
                         .WithMany("Prodotti")
                         .HasForeignKey("CassettoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Armadietto");
 
                     b.Navigation("Cassetto");
                 });
@@ -641,11 +684,16 @@ namespace BuildWeek5_Team5.Migrations
 
             modelBuilder.Entity("BuildWeek5_Team5.Models.Armadietto", b =>
                 {
-                    b.Navigation("Cassetti");
+                    b.Navigation("ArmadiettiCassetti");
+
+                    b.Navigation("Prodotto")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BuildWeek5_Team5.Models.Cassetto", b =>
                 {
+                    b.Navigation("ArmadiettiCassetti");
+
                     b.Navigation("Prodotti");
                 });
 #pragma warning restore 612, 618

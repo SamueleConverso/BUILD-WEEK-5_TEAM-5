@@ -67,6 +67,25 @@ namespace BuildWeek5_Team5.Services
             }
         }
 
+        public async Task<List<Visita>> GetAnimaleAnamnesiByIdAsync(int id)
+        {
+            var listVisite = new List<Visita>();
+
+            try
+            {
+                listVisite = await _context.Visite.Include(v => v.AnimaleSmarrito).Where(a => a.AnimaleSmarritoId == id).OrderByDescending(v => v.DataVisita).ToListAsync();
+                return listVisite;
+            }
+            catch (Exception ex)
+            {
+                listVisite = null;
+
+                Console.WriteLine(ex.Message);
+            }
+
+            return listVisite;
+        }
+
         public async Task<bool> Update(int id, CreateAnimaleSmarritoDto createAnimaleSmarritoDto)
         {
             try
@@ -78,15 +97,19 @@ namespace BuildWeek5_Team5.Services
                     return false;
                 }
 
+                if (animale.Nome == createAnimaleSmarritoDto.Nome && animale.Specie == createAnimaleSmarritoDto.Specie && animale.Colore == createAnimaleSmarritoDto.Colore && animale.Microchip == createAnimaleSmarritoDto.Microchip && animale.NumeroMicrochip == createAnimaleSmarritoDto.NumeroMicrochip)
+                {
+                    return true;
+                }
+
                 animale.Nome = createAnimaleSmarritoDto.Nome;
                 animale.Specie = createAnimaleSmarritoDto.Specie;
                 animale.Colore = createAnimaleSmarritoDto.Colore;
                 animale.Microchip = createAnimaleSmarritoDto.Microchip;
                 animale.NumeroMicrochip = createAnimaleSmarritoDto.NumeroMicrochip;
-                if (animale.Nome == createAnimaleSmarritoDto.Nome && animale.Specie == createAnimaleSmarritoDto.Specie && animale.Colore == createAnimaleSmarritoDto.Colore && animale.Microchip == createAnimaleSmarritoDto.Microchip && animale.NumeroMicrochip == createAnimaleSmarritoDto.NumeroMicrochip)
-                {
-                    return true;
-                }
+
+
+
                 return await SaveAsync();
             }
             catch

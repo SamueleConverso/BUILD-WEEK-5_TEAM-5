@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BuildWeek5_Team5.DTOs.Farmacia
+namespace BuildWeek5_Team5.DTOs.Prodotto
 {
-    public class EditProdottoResponse
+    public class ProdottoResponseDto
     {
         [Required]
         public string Message { get; set; }

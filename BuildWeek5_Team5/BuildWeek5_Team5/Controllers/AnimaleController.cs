@@ -2,12 +2,14 @@
 using BuildWeek5_Team5.DTOs.Visita;
 using BuildWeek5_Team5.Models;
 using BuildWeek5_Team5.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildWeek5_Team5.Controllers {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Veterinario")]
     public class AnimaleController : ControllerBase {
         private readonly AnimaleService _animaleService;
 
@@ -24,7 +26,7 @@ namespace BuildWeek5_Team5.Controllers {
                 Colore = createAnimaleRequestDto.Colore,
                 DataNascita = createAnimaleRequestDto.DataNascita,
                 Microchip = createAnimaleRequestDto.Microchip,
-                NumeroMicrochip = createAnimaleRequestDto.Microchip ? createAnimaleRequestDto.NumeroMicrochip : null,
+                NumeroMicrochip =  createAnimaleRequestDto?.NumeroMicrochip,
                 NominativoProprietario = createAnimaleRequestDto.NominativoProprietario
             };
 
@@ -83,6 +85,7 @@ namespace BuildWeek5_Team5.Controllers {
         }
 
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAnimaleById(int id) {
             var animaleToFind = await _animaleService.GetAnimaleByIdAsync(id);
 
@@ -116,7 +119,45 @@ namespace BuildWeek5_Team5.Controllers {
             });
         }
 
-        [HttpPut("{id:int}")]
+        [HttpGet("anamnesi")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAnamnesi([FromQuery] int id)
+        {
+            try
+            {
+                var visite = await _animaleService.GetAnimaleAnamnesiByIdAsync(id);
+
+                if(visite == null)
+                {
+                    return BadRequest(new VisitaResponseDto {
+                        Message = "Errore nel recupero dell'anamnesi"
+                    });
+                }
+
+                var visiteList = visite.Select(v => new VisitaAnamnesiDto
+                {
+                    VisitaId = v.VisitaId,
+                    DataVisita = v.DataVisita,
+                    Esame = v.Esame,
+                    DescrizioneCura = v.DescrizioneCura
+                }).ToList();
+
+                return Ok(new
+                {
+                    message = "Anamnesi recuperata con successo",
+                    visite = visiteList
+                });
+            }
+            catch
+            {
+                return BadRequest(new VisitaResponseDto
+                {
+                    Message = "Errore nel recupero dell'animale"
+                });
+            }
+        }
+
+        [HttpPut]
         public async Task<IActionResult> UpdateAnimale(int id, [FromBody] UpdateAnimaleRequestDto updateAnimaleRequestDto) {
             var vecchioAnimale = await _animaleService.GetAnimaleByIdAsync(id);
 

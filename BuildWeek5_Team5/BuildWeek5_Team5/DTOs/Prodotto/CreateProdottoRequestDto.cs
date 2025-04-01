@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BuildWeek5_Team5.DTOs.Farmacia
+namespace BuildWeek5_Team5.DTOs.Prodotto
 {
     public class CreateProdottoRequestDto
     {
@@ -23,6 +23,6 @@ namespace BuildWeek5_Team5.DTOs.Farmacia
         public string ElencoUsi { get; set; }
 
         [Required]
-        public int ArmadiettoId { get; set; }
+        public int CassettoId { get; set; }
     }
 }

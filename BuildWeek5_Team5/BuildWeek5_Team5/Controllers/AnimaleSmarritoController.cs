@@ -3,6 +3,7 @@ using BuildWeek5_Team5.DTOs.Smarriti;
 using BuildWeek5_Team5.DTOs.Visita;
 using BuildWeek5_Team5.Models;
 using BuildWeek5_Team5.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace BuildWeek5_Team5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Veterinario")]
     public class AnimaleSmarritoController : ControllerBase
     {
         private readonly AnimaleSmarritoService _animaleSmarritoService;
@@ -30,7 +32,7 @@ namespace BuildWeek5_Team5.Controllers
                 Specie = createAnimaleSmarritoDto.Specie,
                 Colore = createAnimaleSmarritoDto.Colore,
                 Microchip = createAnimaleSmarritoDto.Microchip,
-                NumeroMicrochip = createAnimaleSmarritoDto.NumeroMicrochip,
+                NumeroMicrochip = createAnimaleSmarritoDto.NumeroMicrochip
             };
 
             var result = await _animaleSmarritoService.CreateAsync(animale);
@@ -81,6 +83,7 @@ namespace BuildWeek5_Team5.Controllers
             try
             {
                 var vecchioAnimale = await _context.AnimaliSmarriti.FindAsync(id);
+
                 if (vecchioAnimale.Nome == createAnimaleSmarritoDto.Nome && vecchioAnimale.Specie == createAnimaleSmarritoDto.Specie && vecchioAnimale.Colore == createAnimaleSmarritoDto.Colore && vecchioAnimale.Microchip == createAnimaleSmarritoDto.Microchip && vecchioAnimale.NumeroMicrochip == createAnimaleSmarritoDto.NumeroMicrochip)
                 {
                     return Ok(new AnimaleSmarritoResponse { Message = "Nessuna modifica effettuata." });
@@ -111,6 +114,7 @@ namespace BuildWeek5_Team5.Controllers
         }
 
         [HttpGet("/animaleSmarrito")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAnimaleSmarritoById([FromQuery] int id)
         {
             try
@@ -141,6 +145,45 @@ namespace BuildWeek5_Team5.Controllers
             catch
             {
                 return BadRequest(new AnimaleSmarritoResponse { Message = "Errore durante il recupero dell'animale smarrito" });
+            }
+        }
+
+        [HttpGet("anamnesi")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAnamnesi([FromQuery] int id)
+        {
+            try
+            {
+                var visite = await _animaleSmarritoService.GetAnimaleAnamnesiByIdAsync(id);
+
+                if (visite == null)
+                {
+                    return BadRequest(new VisitaResponseDto
+                    {
+                        Message = "Errore nel recupero dell'anamnesi"
+                    });
+                }
+
+                var visiteList = visite.Select(v => new VisitaAnamnesiDto
+                {
+                    VisitaId = v.VisitaId,
+                    DataVisita = v.DataVisita,
+                    Esame = v.Esame,
+                    DescrizioneCura = v.DescrizioneCura
+                }).ToList();
+
+                return Ok(new
+                {
+                    message = "Anamnesi recuperata con successo",
+                    visite = visiteList
+                });
+            }
+            catch
+            {
+                return BadRequest(new VisitaResponseDto
+                {
+                    Message = "Errore nel recupero dell'animale"
+                });
             }
         }
     }

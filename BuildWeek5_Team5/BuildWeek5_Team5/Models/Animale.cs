@@ -51,5 +51,7 @@ namespace BuildWeek5_Team5.Models {
         public ICollection<Visita>? Visite {
             get; set;
         }
+
+        public Ricovero? Ricovero { get; set; }
     }
 }

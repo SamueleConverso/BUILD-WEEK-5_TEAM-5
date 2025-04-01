@@ -9,12 +9,8 @@ namespace BuildWeek5_Team5.Models {
             get; set;
         }
 
-        [Required]
-        public int Cassetto {
-            get; set;
-        }
-
-        public ICollection<Prodotto> Prodotti {
+        public ICollection<Cassetto> Cassetti
+        {
             get; set;
         }
     }
