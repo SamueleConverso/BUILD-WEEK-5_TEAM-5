@@ -117,7 +117,22 @@ namespace BuildWeek5_Team5.Controllers {
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateArtista(int id, [FromBody] UpdateAnimaleRequestDto updateAnimaleRequestDto) {
+        public async Task<IActionResult> UpdateAnimale(int id, [FromBody] UpdateAnimaleRequestDto updateAnimaleRequestDto) {
+            var vecchioAnimale = await _animaleService.GetAnimaleByIdAsync(id);
+
+            if (vecchioAnimale == null) {
+                return BadRequest(new UpdateAnimaleResponseDto {
+                    Message = "Animale non trovato"
+                });
+            }
+
+            if (updateAnimaleRequestDto.DataRegistrazione == vecchioAnimale.DataRegistrazione && updateAnimaleRequestDto.Nome == vecchioAnimale.Nome && updateAnimaleRequestDto.Specie == vecchioAnimale.Specie && updateAnimaleRequestDto.Colore == vecchioAnimale.Colore && updateAnimaleRequestDto.DataNascita == vecchioAnimale.DataNascita && updateAnimaleRequestDto.Microchip == vecchioAnimale.Microchip && updateAnimaleRequestDto.NumeroMicrochip == vecchioAnimale.NumeroMicrochip && updateAnimaleRequestDto.NominativoProprietario == vecchioAnimale.NominativoProprietario) {
+                return Ok(new UpdateAnimaleResponseDto {
+                    Message = "Nessuna modifica effettuata"
+                });
+            }
+
+
             var result = await _animaleService.UpdateAnimaleAsync(id, updateAnimaleRequestDto);
 
             if (!result) {

@@ -158,6 +158,24 @@ namespace BuildWeek5_Team5.Controllers {
 
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateRicovero(int id, [FromBody] UpdateRicoveroRequestDto updateRicoveroRequestDto) {
+            var vecchioRicovero = await _ricoveroService.GetRicoveroByIdAsync(id);
+
+            if (vecchioRicovero == null) {
+                return BadRequest(new UpdateRicoveroResponseDto {
+                    Message = "Ricovero non trovato"
+                });
+            }
+
+            if (vecchioRicovero.Descrizione == updateRicoveroRequestDto.Descrizione &&
+                vecchioRicovero.DataInizioRicovero == updateRicoveroRequestDto.DataInizioRicovero &&
+                vecchioRicovero.DataFineRicovero == updateRicoveroRequestDto.DataFineRicovero &&
+                vecchioRicovero.AnimaleId == updateRicoveroRequestDto.AnimaleId &&
+                vecchioRicovero.AnimaleSmarritoId == updateRicoveroRequestDto.AnimaleSmarritoId) {
+                return Ok(new UpdateRicoveroResponseDto {
+                    Message = "Nessuna modifica effettuata"
+                });
+            }
+
             var result = await _ricoveroService.UpdateRicoveroAsync(id, updateRicoveroRequestDto);
 
             if (!result) {
