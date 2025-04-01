@@ -52,6 +52,11 @@ namespace BuildWeek5_Team5.Data {
             get; set;
         }
 
+        public DbSet<Cassetto> Cassetti
+        {
+            get; set;
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
@@ -65,11 +70,21 @@ namespace BuildWeek5_Team5.Data {
 
             modelBuilder.Entity<Vendita>().Property(p => p.DataVendita).HasDefaultValueSql("GETDATE()").IsRequired(true);
 
-            modelBuilder.Entity<Prodotto>().HasOne(p => p.Armadietto).WithMany(a => a.Prodotti).HasForeignKey(p => p.ArmadiettoId);
+            modelBuilder.Entity<Prodotto>().HasOne(p => p.Cassetto).WithMany(a => a.Prodotti).HasForeignKey(p => p.CassettoId);
 
             modelBuilder.Entity<Visita>().HasOne(v => v.Animale).WithMany(a => a.Visite).HasForeignKey(v => v.AnimaleId);
 
             modelBuilder.Entity<Visita>().HasOne(v => v.AnimaleSmarrito).WithMany(a => a.Visite).HasForeignKey(v => v.AnimaleSmarritoId);
+
+            modelBuilder.Entity<AnimaleSmarrito>().HasOne(a => a.Ricovero).WithOne(r => r.AnimaleSmarrito).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Animale>().HasOne(a => a.Ricovero).WithOne(r => r.Animale).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AnimaleSmarrito>().HasIndex(a => a.NumeroMicrochip).IsUnique(true);
+
+            modelBuilder.Entity<Animale>().HasIndex(a => a.NumeroMicrochip).IsUnique(true);
+
+            modelBuilder.Entity<Armadietto>().HasMany(a => a.Cassetti).WithOne(c => c.Armadietto).HasForeignKey(c => c.ArmadiettoId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

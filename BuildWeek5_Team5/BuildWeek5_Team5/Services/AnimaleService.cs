@@ -67,12 +67,43 @@ namespace BuildWeek5_Team5.Services {
             return animale;
         }
 
+        public async Task<List<Visita>> GetAnimaleAnamnesiByIdAsync(int id)
+        {
+            var listVisite = new List<Visita>();
+
+            try
+            {
+                listVisite = await _context.Visite.Include(v => v.Animale).Where(a => a.AnimaleId == id).OrderByDescending(v => v.DataVisita).ToListAsync();
+                return listVisite;
+            }
+            catch (Exception ex)
+            {
+                listVisite = null;
+
+                Console.WriteLine(ex.Message);
+            }
+
+            return listVisite;
+        }
+
         public async Task<bool> UpdateAnimaleAsync(int id, UpdateAnimaleRequestDto updateAnimaleRequestDto) {
             try {
                 var animaleTrovato = await GetAnimaleByIdAsync(id);
 
                 if (animaleTrovato == null) {
                     return false;
+                }
+
+                if(animaleTrovato.DataRegistrazione == updateAnimaleRequestDto.DataRegistrazione &&
+                animaleTrovato.Nome == updateAnimaleRequestDto.Nome &&
+                animaleTrovato.Specie == updateAnimaleRequestDto.Specie &&
+                animaleTrovato.Colore == updateAnimaleRequestDto.Colore &&
+                animaleTrovato.DataNascita == updateAnimaleRequestDto.DataNascita &&
+                animaleTrovato.Microchip == updateAnimaleRequestDto.Microchip &&
+                animaleTrovato.NumeroMicrochip == updateAnimaleRequestDto.NumeroMicrochip &&
+                animaleTrovato.NominativoProprietario == updateAnimaleRequestDto.NominativoProprietario)
+                {
+                    return true;
                 }
 
                 animaleTrovato.DataRegistrazione = updateAnimaleRequestDto.DataRegistrazione;

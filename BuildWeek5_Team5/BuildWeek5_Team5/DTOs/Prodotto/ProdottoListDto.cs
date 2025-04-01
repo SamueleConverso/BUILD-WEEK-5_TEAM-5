@@ -1,4 +1,4 @@
-﻿namespace BuildWeek5_Team5.DTOs.Farmacia
+﻿namespace BuildWeek5_Team5.DTOs.Prodotto
 {
     public class ProdottoListDto
     {

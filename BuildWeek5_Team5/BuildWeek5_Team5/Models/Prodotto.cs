@@ -40,12 +40,12 @@ namespace BuildWeek5_Team5.Models {
         }
 
         [Required]
-        public int ArmadiettoId {
+        public int CassettoId {
             get; set;
         }
 
-        [ForeignKey("ArmadiettoId")]
-        public Armadietto Armadietto {
+        [ForeignKey("CassettoId")]
+        public Cassetto Cassetto {
             get; set;
         }
     }

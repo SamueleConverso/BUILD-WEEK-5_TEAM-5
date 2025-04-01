@@ -1,6 +1,8 @@
 ﻿using BuildWeek5_Team5.Data;
-using BuildWeek5_Team5.DTOs.Farmacia;
+using BuildWeek5_Team5.DTOs.Prodotto;
 using BuildWeek5_Team5.DTOs.Vendite;
+using BuildWeek5_Team5.DTOs.Cassetto;
+using BuildWeek5_Team5.DTOs.Armadietto;
 using BuildWeek5_Team5.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,32 +11,30 @@ namespace BuildWeek5_Team5.Services
     public class ProdottoService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<ProdottoService> _logger;
 
-        public ProdottoService(ApplicationDbContext context, ILogger<ProdottoService> logger)
+        public ProdottoService(ApplicationDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
-        private async Task<bool> TrySaveAsync()
+        private async Task<bool> SaveAsync()
         {
             try
             {
                 return await _context.SaveChangesAsync() > 0;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return false;
             }
         }
+
         public async Task<List<ProdottoDto>?> GetAllProdottiAsync()
         {
             try
             {
                 var prodotti = await _context.Prodotti
-                    .Include(p => p.Armadietto)
+                    .Include(p => p.Cassetto)
                     .ToListAsync();
 
                 if (prodotti == null || !prodotti.Any())
@@ -48,73 +48,70 @@ namespace BuildWeek5_Team5.Services
                     NomeDitta = p.NomeDitta,
                     RecapitoDitta = p.RecapitoDitta,
                     IndirizzoDitta = p.IndirizzoDitta,
-                    ElencoUsi = p.ElencoUsi,
-                    ArmadiettoId = p.ArmadiettoId,
-                    Armadietto = new ArmadiettoDto
-                    {
-                        ArmadiettoId = p.Armadietto.ArmadiettoId,
-                        Cassetto = p.Armadietto.Cassetto
-                    }
+                    ElencoUsi = p.ElencoUsi
                 }).ToList();
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return null;
             }
         }
-        public async Task<ProdottoDto?> GetProdottoByIdAsync(int prodottoId)
+
+
+        public async Task<ProdottoCassettoArmadiettoDto?> GetProdottoByIdAsync(int prodottoId)
         {
             try
             {
-                var prodotto = await _context.Prodotti
-                    .Include(p => p.Armadietto)
-                    .FirstOrDefaultAsync(p => p.ProdottoId == prodottoId);
+                var prodotto = await _context.Prodotti.Include(p => p.Cassetto).ThenInclude(c => c.Armadietto).FirstOrDefaultAsync(p => p.ProdottoId == prodottoId);
 
                 if (prodotto == null)
                     return null;
 
-                return new ProdottoDto
+                return new ProdottoCassettoArmadiettoDto
                 {
-                    ProdottoId = prodotto.ProdottoId,
                     TipoProdotto = prodotto.TipoProdotto,
                     NomeProdotto = prodotto.NomeProdotto,
                     NomeDitta = prodotto.NomeDitta,
                     RecapitoDitta = prodotto.RecapitoDitta,
                     IndirizzoDitta = prodotto.IndirizzoDitta,
                     ElencoUsi = prodotto.ElencoUsi,
-                    ArmadiettoId = prodotto.ArmadiettoId,
-                    Armadietto = new ArmadiettoDto
+                    Cassetto = new CassettoArmadiettoProdottoDto
                     {
-                        ArmadiettoId = prodotto.Armadietto.ArmadiettoId,
-                        Cassetto = prodotto.Armadietto.Cassetto
+                        CassettoId = prodotto.CassettoId,
+                        NumeroCassetto = prodotto.Cassetto.NumeroCassetto,
+                        Armadietto = new ArmadiettoProdottoCassettoDto
+                        {
+                            ArmadiettoId = prodotto.Cassetto.Armadietto.ArmadiettoId
+                        }
                     }
                 };
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return null;
             }
         }
+
+
         public async Task<bool> CreateProdottoAsync(Prodotto prodotto)
         {
             try
             {
-                var armadietto = await _context.Armadietti.FindAsync(prodotto.ArmadiettoId);
-                if (armadietto == null)
+                var cassetto = await _context.Cassetti.FindAsync(prodotto.CassettoId);
+                if (cassetto == null)
                     return false;
 
                 _context.Prodotti.Add(prodotto);
-                return await TrySaveAsync();
+                return await SaveAsync();
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return false;
             }
         }
-        public async Task<bool> EditProdottoAsync(int prodottoId, EditProdottoRequestDto editProdotto)
+
+
+        public async Task<bool> EditProdottoAsync(int prodottoId, CreateProdottoRequestDto editProdotto)
         {
             try
             {
@@ -122,41 +119,43 @@ namespace BuildWeek5_Team5.Services
                 if (prodotto == null)
                     return false;
 
-                if (editProdotto.ArmadiettoId != 0 && editProdotto.ArmadiettoId != prodotto.ArmadiettoId)
+                if (editProdotto.CassettoId != 0 && editProdotto.CassettoId != prodotto.CassettoId)
                 {
-                    var armadietto = await _context.Armadietti.FindAsync(editProdotto.ArmadiettoId);
-                    if (armadietto == null)
+                    var cassetto = await _context.Cassetti.FindAsync(editProdotto.CassettoId);
+                    if (cassetto == null)
                         return false;
 
-                    prodotto.ArmadiettoId = editProdotto.ArmadiettoId;
+                    prodotto.CassettoId = editProdotto.CassettoId;
+                }
+                
+                if(prodotto.TipoProdotto == editProdotto.TipoProdotto && prodotto.NomeProdotto == editProdotto.NomeProdotto && prodotto.NomeDitta == editProdotto.NomeDitta && prodotto.RecapitoDitta == editProdotto.RecapitoDitta && prodotto.IndirizzoDitta == editProdotto.IndirizzoDitta && prodotto.ElencoUsi == editProdotto.ElencoUsi)
+                {
+                    return true;
                 }
 
-                if (!string.IsNullOrEmpty(editProdotto.TipoProdotto))
-                    prodotto.TipoProdotto = editProdotto.TipoProdotto;
+                prodotto.TipoProdotto = editProdotto.TipoProdotto;
 
-                if (!string.IsNullOrEmpty(editProdotto.NomeProdotto))
-                    prodotto.NomeProdotto = editProdotto.NomeProdotto;
+                prodotto.NomeProdotto = editProdotto.NomeProdotto;
 
-                if (!string.IsNullOrEmpty(editProdotto.NomeDitta))
-                    prodotto.NomeDitta = editProdotto.NomeDitta;
+                prodotto.NomeDitta = editProdotto.NomeDitta;
 
-                if (!string.IsNullOrEmpty(editProdotto.RecapitoDitta))
-                    prodotto.RecapitoDitta = editProdotto.RecapitoDitta;
+                prodotto.RecapitoDitta = editProdotto.RecapitoDitta;
 
-                if (!string.IsNullOrEmpty(editProdotto.IndirizzoDitta))
-                    prodotto.IndirizzoDitta = editProdotto.IndirizzoDitta;
+                prodotto.IndirizzoDitta = editProdotto.IndirizzoDitta;
 
-                if (!string.IsNullOrEmpty(editProdotto.ElencoUsi))
-                    prodotto.ElencoUsi = editProdotto.ElencoUsi;
+                prodotto.ElencoUsi = editProdotto.ElencoUsi;
 
-                return await TrySaveAsync();
+
+
+                return await SaveAsync();
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return false;
             }
         }
+
+
         public async Task<bool> DeleteProdottoAsync(int prodottoId)
         {
             try
@@ -170,40 +169,14 @@ namespace BuildWeek5_Team5.Services
                     return false;
 
                 _context.Prodotti.Remove(prodotto);
-                return await TrySaveAsync();
+                return await SaveAsync();
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return false;
             }
         }
-        public async Task<PosizioneFisicaDto?> GetPosizioneFisicaAsync(int prodottoId)
-        {
-            try
-            {
-                var result = await _context.Prodotti
-                    .Where(p => p.ProdottoId == prodottoId)
-                    .Join(_context.Armadietti,
-                        prodotto => prodotto.ArmadiettoId,
-                        armadietto => armadietto.ArmadiettoId,
-                        (prodotto, armadietto) => new PosizioneFisicaDto
-                        {
-                            ProdottoId = prodotto.ProdottoId,
-                            NomeProdotto = prodotto.NomeProdotto,
-                            ArmadiettoId = armadietto.ArmadiettoId,
-                            Cassetto = armadietto.Cassetto
-                        })
-                    .FirstOrDefaultAsync();
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return null;
-            }
-        }
         public async Task<List<VenditaDto>?> GetVenditeByDataAsync(DateOnly data)
         {
             try
@@ -225,9 +198,8 @@ namespace BuildWeek5_Team5.Services
 
                 return vendite.Any() ? vendite : null;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return null;
             }
         }
@@ -252,9 +224,8 @@ namespace BuildWeek5_Team5.Services
 
                 return prodotti.Any() ? prodotti : null;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return null;
             }
         }
@@ -293,9 +264,8 @@ namespace BuildWeek5_Team5.Services
 
                 return prodotti.Any() ? prodotti : null;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, ex.Message);
                 return null;
             }
         }

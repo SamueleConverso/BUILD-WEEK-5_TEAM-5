@@ -68,6 +68,32 @@ namespace BuildWeek5_Team5.Services {
             return ricovero;
         }
 
+        public async Task<AnimaleSmarrito> GetRicoveroByMicrochipAsync(int microchip)
+        {
+            var animale = new AnimaleSmarrito();
+
+            try
+            {
+                animale = await _context.AnimaliSmarriti.FirstOrDefaultAsync(a => a.NumeroMicrochip == microchip);
+                var ricovero = await _context.Ricoveri.FirstOrDefaultAsync(r => r.AnimaleSmarritoId == animale.AnimaleSmarritoId);
+
+                if(ricovero == null)
+                {
+                    return null!;
+                }
+
+                return animale!;
+            }
+            catch (Exception ex)
+            {
+                animale = null;
+
+                Console.WriteLine(ex.Message);
+            }
+
+            return animale!;
+        }
+
         public async Task<bool> UpdateRicoveroAsync(int id, UpdateRicoveroRequestDto updateRicoveroRequestDto) {
             try {
                 var ricoveroTrovato = await GetRicoveroByIdAsync(id);

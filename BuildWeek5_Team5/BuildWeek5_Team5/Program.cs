@@ -90,6 +90,8 @@ builder.Services.AddScoped<AnimaleSmarritoService>();
 builder.Services.AddScoped<VisitaService>();
 builder.Services.AddScoped<AnimaleService>();
 builder.Services.AddScoped<RicoveroService>();
+builder.Services.AddScoped<ArmadiettoService>();
+builder.Services.AddScoped<CassettoService>();
 
 
 var app = builder.Build();

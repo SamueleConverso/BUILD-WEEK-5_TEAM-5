@@ -4,6 +4,7 @@ using BuildWeek5_Team5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildWeek5_Team5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250401095044_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,30 +236,12 @@ namespace BuildWeek5_Team5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArmadiettoId"));
 
+                    b.Property<int>("Cassetto")
+                        .HasColumnType("int");
+
                     b.HasKey("ArmadiettoId");
 
                     b.ToTable("Armadietti");
-                });
-
-            modelBuilder.Entity("BuildWeek5_Team5.Models.Cassetto", b =>
-                {
-                    b.Property<int>("CassettoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CassettoId"));
-
-                    b.Property<int>("ArmadiettoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumeroCassetto")
-                        .HasColumnType("int");
-
-                    b.HasKey("CassettoId");
-
-                    b.HasIndex("ArmadiettoId");
-
-                    b.ToTable("Cassetti");
                 });
 
             modelBuilder.Entity("BuildWeek5_Team5.Models.Prodotto", b =>
@@ -267,7 +252,7 @@ namespace BuildWeek5_Team5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdottoId"));
 
-                    b.Property<int>("CassettoId")
+                    b.Property<int>("ArmadiettoId")
                         .HasColumnType("int");
 
                     b.Property<string>("ElencoUsi")
@@ -296,7 +281,7 @@ namespace BuildWeek5_Team5.Migrations
 
                     b.HasKey("ProdottoId");
 
-                    b.HasIndex("CassettoId");
+                    b.HasIndex("ArmadiettoId");
 
                     b.ToTable("Prodotti");
                 });
@@ -514,26 +499,15 @@ namespace BuildWeek5_Team5.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BuildWeek5_Team5.Models.Cassetto", b =>
+            modelBuilder.Entity("BuildWeek5_Team5.Models.Prodotto", b =>
                 {
                     b.HasOne("BuildWeek5_Team5.Models.Armadietto", "Armadietto")
-                        .WithMany("Cassetti")
+                        .WithMany("Prodotti")
                         .HasForeignKey("ArmadiettoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Armadietto");
-                });
-
-            modelBuilder.Entity("BuildWeek5_Team5.Models.Prodotto", b =>
-                {
-                    b.HasOne("BuildWeek5_Team5.Models.Cassetto", "Cassetto")
-                        .WithMany("Prodotti")
-                        .HasForeignKey("CassettoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cassetto");
                 });
 
             modelBuilder.Entity("BuildWeek5_Team5.Models.Ricovero", b =>
@@ -640,11 +614,6 @@ namespace BuildWeek5_Team5.Migrations
                 });
 
             modelBuilder.Entity("BuildWeek5_Team5.Models.Armadietto", b =>
-                {
-                    b.Navigation("Cassetti");
-                });
-
-            modelBuilder.Entity("BuildWeek5_Team5.Models.Cassetto", b =>
                 {
                     b.Navigation("Prodotti");
                 });

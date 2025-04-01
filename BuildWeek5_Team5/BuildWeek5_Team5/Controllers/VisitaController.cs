@@ -7,11 +7,13 @@ using BuildWeek5_Team5.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BuildWeek5_Team5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Veterinario")]
     public class VisitaController : ControllerBase
     {
         private readonly VisitaService _visitaService;

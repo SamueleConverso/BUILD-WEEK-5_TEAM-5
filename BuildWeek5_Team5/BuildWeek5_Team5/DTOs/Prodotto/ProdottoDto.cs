@@ -1,13 +1,16 @@
-﻿namespace BuildWeek5_Team5.DTOs.Farmacia
+﻿using BuildWeek5_Team5.DTOs.Armadietto;
+
+namespace BuildWeek5_Team5.DTOs.Prodotto
 {
-    public class EditProdottoRequestDto
+    public class ProdottoDto
     {
+        public int ProdottoId { get; set; }
         public string TipoProdotto { get; set; }
         public string NomeProdotto { get; set; }
         public string NomeDitta { get; set; }
         public string RecapitoDitta { get; set; }
         public string IndirizzoDitta { get; set; }
         public string ElencoUsi { get; set; }
-        public int ArmadiettoId { get; set; }
+
     }
 }

@@ -4,12 +4,14 @@ using BuildWeek5_Team5.DTOs.Smarriti;
 using BuildWeek5_Team5.DTOs.Visita;
 using BuildWeek5_Team5.Models;
 using BuildWeek5_Team5.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildWeek5_Team5.Controllers {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Veterinario")]
     public class RicoveroController : ControllerBase {
         private readonly RicoveroService _ricoveroService;
 
@@ -202,6 +204,29 @@ namespace BuildWeek5_Team5.Controllers {
             return Ok(new {
                 message = "Ricovero cancellato con successo"
             });
+        }
+
+        [HttpGet("microchip")]
+        public async Task<IActionResult> GetByMicrochip([FromQuery] int microchip)
+        {
+            var result = await _ricoveroService.GetRicoveroByMicrochipAsync(microchip);
+
+            if(result == null)
+            {
+                return BadRequest(new AnimaleSmarritoResponse { Message = "Qualcosa è andato storto." });
+            }
+
+            var animale = new SmarritoVisitaDto()
+            {
+                AnimaleSmarritoId = result.AnimaleSmarritoId,
+                Nome = result.Nome,
+                Specie = result.Specie,
+                Colore = result.Colore,
+                Microchip = result.Microchip,
+                NumeroMicrochip = result.NumeroMicrochip
+            };
+
+            return Ok(new { message = "Animale smarrito trovato con successo", animaleSmarrito = animale });
         }
     }
 }
