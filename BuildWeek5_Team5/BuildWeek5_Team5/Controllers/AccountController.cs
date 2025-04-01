@@ -59,13 +59,14 @@ namespace BuildWeek5_Team5.Controllers {
                     errors = roleResult.Errors.Select(e => new { code = e.Code, description = e.Description }).ToList()
                 });
             }
-
-            return Ok(new
+            
+                 return Ok(new
             {
                 message = "Registrazione avvenuta con successo",
                 role = "Farmacista"
-            });
-        }
+            }
+
+      
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequestDto loginRequestDto) {

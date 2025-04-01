@@ -24,21 +24,21 @@ namespace BuildWeek5_Team5.Models {
             get; set;
         }
 
-        public int AnimaleId {
+        public int? AnimaleId {
             get; set;
         }
 
         [ForeignKey("AnimaleId")]
-        public Animale Animale {
+        public Animale? Animale {
             get; set;
         }
 
-        public int AnimaleSmarritoId {
+        public int? AnimaleSmarritoId {
             get; set;
         }
 
         [ForeignKey("AnimaleSmarritoId")]
-        public AnimaleSmarrito AnimaleSmarrito {
+        public AnimaleSmarrito? AnimaleSmarrito {
             get; set;
         }
     }

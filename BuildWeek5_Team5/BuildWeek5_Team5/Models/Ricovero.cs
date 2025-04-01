@@ -19,11 +19,11 @@ namespace BuildWeek5_Team5.Models {
             get; set;
         }
 
-        public DateOnly DataFineRicovero {
+        public DateOnly? DataFineRicovero {
             get; set;
         }
 
-        public int AnimaleId {
+        public int? AnimaleId {
             get; set;
         }
 
@@ -32,7 +32,7 @@ namespace BuildWeek5_Team5.Models {
             get; set;
         }
 
-        public int AnimaleSmarritoId {
+        public int? AnimaleSmarritoId {
             get; set;
         }
 

@@ -65,8 +65,6 @@ namespace BuildWeek5_Team5.Data {
 
             modelBuilder.Entity<Vendita>().Property(p => p.DataVendita).HasDefaultValueSql("GETDATE()").IsRequired(true);
 
-            modelBuilder.Entity<Visita>().Property(p => p.DataVisita).HasDefaultValueSql("GETDATE()").IsRequired(true);
-
             modelBuilder.Entity<Prodotto>().HasOne(p => p.Armadietto).WithMany(a => a.Prodotti).HasForeignKey(p => p.ArmadiettoId);
 
             modelBuilder.Entity<Visita>().HasOne(v => v.Animale).WithMany(a => a.Visite).HasForeignKey(v => v.AnimaleId);

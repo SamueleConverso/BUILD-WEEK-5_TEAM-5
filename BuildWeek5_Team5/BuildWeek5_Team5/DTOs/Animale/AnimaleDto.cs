@@ -1,41 +1,40 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using BuildWeek5_Team5.DTOs.Visita;
 
-namespace BuildWeek5_Team5.Models {
-    [Table("Animali")]
-    public class Animale {
-        [Key]
-        public int AnimaleId {
+namespace BuildWeek5_Team5.DTOs.Animale {
+    public class AnimaleDto {
+        [Required]
+        public int? AnimaleId {
             get; set;
         }
 
         [Required]
-        public DateOnly DataRegistrazione {
+        public required DateOnly DataRegistrazione {
             get; set;
         }
 
         [Required]
-        public string Nome {
+        public required string Nome {
             get; set;
         }
 
         [Required]
-        public string Specie {
+        public required string Specie {
             get; set;
         }
 
         [Required]
-        public string Colore {
+        public required string Colore {
             get; set;
         }
 
         [Required]
-        public DateOnly DataNascita {
+        public required DateOnly DataNascita {
             get; set;
         }
 
         [Required]
-        public bool Microchip {
+        public required bool Microchip {
             get; set;
         }
 
@@ -44,11 +43,11 @@ namespace BuildWeek5_Team5.Models {
         }
 
         [Required]
-        public string NominativoProprietario {
+        public required string NominativoProprietario {
             get; set;
         }
 
-        public ICollection<Visita>? Visite {
+        public ICollection<VisitaAnimaleDto>? Visite {
             get; set;
         }
     }
