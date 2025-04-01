@@ -27,10 +27,8 @@ namespace BuildWeek5_Team5.Controllers {
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto)
-        {
-            var user = new ApplicationUser
-            {
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto) {
+            var user = new ApplicationUser {
                 FirstName = registerRequestDto.FirstName,
                 LastName = registerRequestDto.LastName,
                 Email = registerRequestDto.Email,
@@ -38,10 +36,8 @@ namespace BuildWeek5_Team5.Controllers {
             };
 
             var result = await _userManager.CreateAsync(user, registerRequestDto.Password);
-            if (!result.Succeeded)
-            {
-                return BadRequest(new
-                {
+            if (!result.Succeeded) {
+                return BadRequest(new {
                     message = "Errore nella registrazione",
                     errors = result.Errors.Select(e => new { code = e.Code, description = e.Description }).ToList()
                 });
@@ -50,23 +46,21 @@ namespace BuildWeek5_Team5.Controllers {
             var userForRole = await _userManager.FindByEmailAsync(user.Email);
             var roleResult = await _userManager.AddToRoleAsync(userForRole, "Farmacista");
 
-            if (!roleResult.Succeeded)
-            {
+            if (!roleResult.Succeeded) {
                 await _userManager.DeleteAsync(userForRole);
-                return BadRequest(new
-                {
+                return BadRequest(new {
                     message = "Errore nell'assegnazione del ruolo",
                     errors = roleResult.Errors.Select(e => new { code = e.Code, description = e.Description }).ToList()
                 });
             }
-            
-                 return Ok(new
-            {
+
+            return Ok(new {
                 message = "Registrazione avvenuta con successo",
                 role = "Farmacista"
-            }
+            });
+        }
 
-      
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequestDto loginRequestDto) {
