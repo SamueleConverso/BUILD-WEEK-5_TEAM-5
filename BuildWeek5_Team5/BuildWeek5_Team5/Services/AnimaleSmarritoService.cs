@@ -1,5 +1,7 @@
-﻿using BuildWeek5_Team5.Data;
+﻿using System.ComponentModel;
+using BuildWeek5_Team5.Data;
 using BuildWeek5_Team5.DTOs.Smarriti;
+using BuildWeek5_Team5.DTOs.Visita;
 using BuildWeek5_Team5.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,7 +83,10 @@ namespace BuildWeek5_Team5.Services
                 animale.Colore = createAnimaleSmarritoDto.Colore;
                 animale.Microchip = createAnimaleSmarritoDto.Microchip;
                 animale.NumeroMicrochip = createAnimaleSmarritoDto.NumeroMicrochip;
-
+                if (animale.Nome == createAnimaleSmarritoDto.Nome && animale.Specie == createAnimaleSmarritoDto.Specie && animale.Colore == createAnimaleSmarritoDto.Colore && animale.Microchip == createAnimaleSmarritoDto.Microchip && animale.NumeroMicrochip == createAnimaleSmarritoDto.NumeroMicrochip)
+                {
+                    return true;
+                }
                 return await SaveAsync();
             }
             catch
