@@ -53,8 +53,7 @@ namespace BuildWeek5_Team5.Migrations
                 columns: table => new
                 {
                     ArmadiettoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cassetto = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -122,12 +121,14 @@ namespace BuildWeek5_Team5.Migrations
                         name: "FK_Ricoveri_AnimaliSmarriti_AnimaleSmarritoId",
                         column: x => x.AnimaleSmarritoId,
                         principalTable: "AnimaliSmarriti",
-                        principalColumn: "AnimaleSmarritoId");
+                        principalColumn: "AnimaleSmarritoId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ricoveri_Animali_AnimaleId",
                         column: x => x.AnimaleId,
                         principalTable: "Animali",
-                        principalColumn: "AnimaleId");
+                        principalColumn: "AnimaleId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,24 +159,19 @@ namespace BuildWeek5_Team5.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prodotti",
+                name: "Cassetti",
                 columns: table => new
                 {
-                    ProdottoId = table.Column<int>(type: "int", nullable: false)
+                    CassettoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TipoProdotto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NomeProdotto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NomeDitta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RecapitoDitta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IndirizzoDitta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ElencoUsi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumeroCassetto = table.Column<int>(type: "int", nullable: false),
                     ArmadiettoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prodotti", x => x.ProdottoId);
+                    table.PrimaryKey("PK_Cassetti", x => x.CassettoId);
                     table.ForeignKey(
-                        name: "FK_Prodotti_Armadietti_ArmadiettoId",
+                        name: "FK_Cassetti_Armadietti_ArmadiettoId",
                         column: x => x.ArmadiettoId,
                         principalTable: "Armadietti",
                         principalColumn: "ArmadiettoId",
@@ -290,6 +286,31 @@ namespace BuildWeek5_Team5.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Prodotti",
+                columns: table => new
+                {
+                    ProdottoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TipoProdotto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeProdotto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeDitta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecapitoDitta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IndirizzoDitta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ElencoUsi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CassettoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prodotti", x => x.ProdottoId);
+                    table.ForeignKey(
+                        name: "FK_Prodotti_Cassetti_CassettoId",
+                        column: x => x.CassettoId,
+                        principalTable: "Cassetti",
+                        principalColumn: "CassettoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vendite",
                 columns: table => new
                 {
@@ -310,6 +331,20 @@ namespace BuildWeek5_Team5.Migrations
                         principalColumn: "ProdottoId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Animali_NumeroMicrochip",
+                table: "Animali",
+                column: "NumeroMicrochip",
+                unique: true,
+                filter: "[NumeroMicrochip] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnimaliSmarriti_NumeroMicrochip",
+                table: "AnimaliSmarriti",
+                column: "NumeroMicrochip",
+                unique: true,
+                filter: "[NumeroMicrochip] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -351,19 +386,28 @@ namespace BuildWeek5_Team5.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prodotti_ArmadiettoId",
-                table: "Prodotti",
+                name: "IX_Cassetti_ArmadiettoId",
+                table: "Cassetti",
                 column: "ArmadiettoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prodotti_CassettoId",
+                table: "Prodotti",
+                column: "CassettoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ricoveri_AnimaleId",
                 table: "Ricoveri",
-                column: "AnimaleId");
+                column: "AnimaleId",
+                unique: true,
+                filter: "[AnimaleId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ricoveri_AnimaleSmarritoId",
                 table: "Ricoveri",
-                column: "AnimaleSmarritoId");
+                column: "AnimaleSmarritoId",
+                unique: true,
+                filter: "[AnimaleSmarritoId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vendite_ProdottoId",
@@ -422,6 +466,9 @@ namespace BuildWeek5_Team5.Migrations
 
             migrationBuilder.DropTable(
                 name: "Animali");
+
+            migrationBuilder.DropTable(
+                name: "Cassetti");
 
             migrationBuilder.DropTable(
                 name: "Armadietti");
