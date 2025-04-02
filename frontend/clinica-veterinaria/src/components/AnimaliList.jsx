@@ -7,7 +7,7 @@ import AnimaleSingleComponent from "./AnimaleSingleComponent.jsx";
 function AnimaliList() {
   const dispatch = useDispatch();
 
-  const animali = useSelector((state) => state.animali);
+  const animali = useSelector((state) => state.animale.animali);
 
   useEffect(() => {
     dispatch(getAnimali());

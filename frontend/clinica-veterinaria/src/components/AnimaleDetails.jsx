@@ -7,7 +7,7 @@ import { getAnimaleById } from "../redux/actions/animale.js";
 function AnimaleDetails() {
   const { animaleId } = useParams();
   const dispatch = useDispatch();
-  const animale = useSelector((state) => state.animale);
+  const animale = useSelector((state) => state.animale.animale);
 
   useEffect(() => {
     dispatch(getAnimaleById(animaleId));

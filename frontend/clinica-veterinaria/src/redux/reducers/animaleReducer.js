@@ -5,7 +5,7 @@ const initialState = {
   animale: null,
 };
 
-const mainReducer = (state = initialState, action) => {
+const animaleReducer = (state = initialState, action) => {
   switch (action.type) {
     case "LOGIN_ERROR":
       return {
@@ -32,4 +32,4 @@ const mainReducer = (state = initialState, action) => {
   }
 };
 
-export default mainReducer;
+export default animaleReducer;
