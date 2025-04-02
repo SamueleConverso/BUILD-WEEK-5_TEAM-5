@@ -1,12 +1,24 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap-icons/font/bootstrap-icons.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import LoginClinica from "./components/LoginClinica";
+import RegisterClinica from "./components/RegisterClinica";
+import FooterClinica from "./components/FooterClinica";
+import NavClinica from "./components/NavClinica";
 
 function App() {
   return (
     <Router>
-      <Routes></Routes>
+      <NavClinica />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginClinica />} />
+        <Route path="/register" element={<RegisterClinica />} />
+      </Routes>
+      <FooterClinica />
     </Router>
   );
 }

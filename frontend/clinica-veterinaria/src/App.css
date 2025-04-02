@@ -3,3 +3,129 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+p,
+h1,
+h2,
+h3,
+h4,
+span,
+a {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cane {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.logoFooter {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* FORM ACCEDI/REGISTRATI */
+
+.containerLogin {
+  max-width: 450px;
+  max-height: 600px;
+  background: #f8f9fd;
+  background: linear-gradient(
+    0deg,
+    rgb(255, 255, 255) 0%,
+    rgb(244, 247, 251) 100%
+  );
+  border-radius: 40px;
+  padding: 25px 35px;
+  border: 5px solid rgb(255, 255, 255);
+  box-shadow: rgba(255, 100, 100, 0.7) 0px 30px 30px -25px;
+  margin: 20px;
+}
+
+.heading {
+  text-align: center;
+  font-weight: 900;
+  font-size: 30px;
+  color: rgb(190, 30, 30);
+}
+
+.formLogin {
+  margin-top: 20px;
+}
+
+.formLogin .inputLogin {
+  width: 100%;
+  background: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 20px;
+  margin-top: 15px;
+  box-shadow: #f5c6c6 0px 10px 10px -5px;
+  border-inline: 2px solid transparent;
+}
+
+.formLogin .inputLogin::-moz-placeholder {
+  color: rgb(170, 170, 170);
+}
+
+.formLogin .inputLogin::placeholder {
+  color: rgb(170, 170, 170);
+}
+
+.formLogin .inputLogin:focus {
+  outline: none;
+  border-inline: 2px solid rgb(190, 30, 30);
+}
+
+.formLogin .login-button {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  background: linear-gradient(
+    45deg,
+    rgb(190, 30, 30) 0%,
+    rgb(255, 80, 80) 100%
+  );
+  color: white;
+  padding-block: 15px;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: rgba(215, 120, 120, 0.85) 0px 20px 10px -15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.formLogin .login-button:hover {
+  transform: scale(1.03);
+  box-shadow: rgba(215, 120, 120, 0.85) 0px 20px 10px -15px;
+}
+
+.formLogin .login-button:active {
+  transform: scale(0.95);
+  box-shadow: rgba(215, 120, 120, 0.85) 0px 20px 10px -15px;
+}
+
+.no-account-container {
+  margin-top: 25px;
+}
+
+.no-account-container .title {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: rgb(170, 170, 170);
+}
