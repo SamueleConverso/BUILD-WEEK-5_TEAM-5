@@ -8,13 +8,23 @@ import LoginClinica from "./components/LoginClinica";
 import RegisterClinica from "./components/RegisterClinica";
 import FooterClinica from "./components/FooterClinica";
 import NavClinica from "./components/NavClinica";
+import AnimaleManagementPage from "./components/AnimaleManagementPage";
+import { Link } from "react-router-dom";
+import AnimaleDetails from "./components/AnimaleDetails";
+
 
 function App() {
   return (
     <Router>
+
       <NavClinica />
       <Routes>
         <Route path="/" element={<Home />} />
+<Route path="/animali" element={<AnimaleManagementPage />} />
+  <Route
+          path="/animale-details/:animaleId"
+          element={<AnimaleDetails />}
+        />
         <Route path="/login" element={<LoginClinica />} />
         <Route path="/register" element={<RegisterClinica />} />
       </Routes>
