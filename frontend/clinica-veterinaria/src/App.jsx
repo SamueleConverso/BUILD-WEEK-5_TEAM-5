@@ -12,16 +12,14 @@ import AnimaleManagementPage from "./components/AnimaleManagementPage";
 import { Link } from "react-router-dom";
 import AnimaleDetails from "./components/AnimaleDetails";
 
-
 function App() {
   return (
     <Router>
-
       <NavClinica />
       <Routes>
         <Route path="/" element={<Home />} />
-<Route path="/animali" element={<AnimaleManagementPage />} />
-  <Route
+        <Route path="/clinica" element={<AnimaleManagementPage />} />
+        <Route
           path="/animale-details/:animaleId"
           element={<AnimaleDetails />}
         />

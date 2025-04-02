@@ -21,7 +21,7 @@ const LoginClinica = () => {
       errors.generic = "Compilare tutti i campi!";
     }
 
-    if (emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
       errors.email = "Inserire un'email valida.";
     }
 
@@ -38,7 +38,7 @@ const LoginClinica = () => {
     setEmail("");
     setErrorMessages({});
     e.target.reset();
-    dispatch(login(email, password, navigate));
+    dispatch(login(email, password), navigate("/"));
   };
 
   return (
@@ -52,8 +52,8 @@ const LoginClinica = () => {
       <div className="containerLogin">
         <div className="heading">Accedi</div>
         <form
-          onSubmit={() => {
-            handleSubmit();
+          onSubmit={(e) => {
+            handleSubmit(e);
           }}
           className="formLogin"
         >

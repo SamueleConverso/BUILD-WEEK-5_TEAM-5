@@ -2,21 +2,21 @@ const initialState = {
   isLoginError: "",
   isRegisterError: "",
   animali: [],
-  animale: null
+  animale: null,
 };
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     case "LOGIN_ERROR":
-      return (
-        {
-          ...state, isLoginError: action.payload
-        });
+      return {
+        ...state,
+        isLoginError: action.payload,
+      };
     case "REGISTER_ERROR":
-      return (
-        {
-          ...state, isRegisterError: action.payload
-        });
+      return {
+        ...state,
+        isRegisterError: action.payload,
+      };
     case "GET_ANIMALI":
       return {
         ...state,

@@ -23,7 +23,7 @@ const RegisterClinica = () => {
       errors.generic = "Compilare tutti i campi!";
     }
 
-    if (emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
       errors.email = "Inserire un'email valida.";
     }
 
@@ -42,7 +42,7 @@ const RegisterClinica = () => {
     setEmail("");
     setErrorMessages({});
     e.target.reset();
-    dispatch(register(nome, cognome, email, password, navigate));
+    dispatch(register(nome, cognome, email, password), navigate("/login"));
   };
 
   return (
@@ -56,8 +56,8 @@ const RegisterClinica = () => {
       <div className="containerLogin">
         <div className="heading">Registrati</div>
         <form
-          onSubmit={() => {
-            handleSubmit();
+          onSubmit={(e) => {
+            handleSubmit(e);
           }}
           className="formLogin"
         >

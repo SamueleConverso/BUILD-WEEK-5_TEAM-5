@@ -16,6 +16,7 @@ const NavClinica = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
         const userRole =
           decodedToken[
             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
@@ -28,6 +29,7 @@ const NavClinica = () => {
           return;
         }
 
+        console.log(userRole);
         setRole(userRole);
         setIsAuthorized(true);
       } catch {
@@ -110,7 +112,7 @@ const NavClinica = () => {
             </Nav>
             <Nav>
               {isAuthorized ? (
-                <p>{role}</p>
+                <p className="text-white">{role}</p>
               ) : (
                 <Nav.Link
                   href="/login"
