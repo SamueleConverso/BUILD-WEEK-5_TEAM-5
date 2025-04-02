@@ -3,6 +3,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CreaAnimaleSmarrito from './components/CreaAnimaleSmarrito';
 import Home from "./components/Home";
 import LoginClinica from "./components/LoginClinica";
 import RegisterClinica from "./components/RegisterClinica";
@@ -15,10 +16,12 @@ import AnimaleDetails from "./components/AnimaleDetails";
 function App() {
   return (
     <Router>
+      <Routes>
       <NavClinica />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/clinica" element={<AnimaleManagementPage />} />
+        <Route path="/clinica/animali-smarriti" element={<CreaAnimaleSmarrito />} />
         <Route
           path="/animale-details/:animaleId"
           element={<AnimaleDetails />}
