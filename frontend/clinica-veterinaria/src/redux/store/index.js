@@ -1,5 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import mainReducer from "../reducers";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import animaleSmarritoReducer from '../reducers/animaleSmarritoReducer';
+
+const mainReducer = combineReducers({
+  animaleSmarrito: animaleSmarritoReducer
+});
+
 
 const store = configureStore({
   reducer: mainReducer,
