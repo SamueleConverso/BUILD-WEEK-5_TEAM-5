@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAnimali } from "../redux/actions/animale.js";
 import { getAnimaliSmarriti } from "../redux/actions/animaleSmarrito.js";
 import { postVisita } from "../redux/actions/visita.js";
-import { data } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const VisitaForm = () => {
   const [inCorso, setInCorso] = useState(false);
@@ -21,6 +21,7 @@ const VisitaForm = () => {
   const [animaleSmarritoId, setAnimaleSmarritoId] = useState(0);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const animali = useSelector((state) => state.animale.animali);
   const animaliSmarriti = useSelector(
@@ -54,7 +55,8 @@ const VisitaForm = () => {
         esame,
         descrizioneCura,
         animaleIdToPass,
-        animaleSmarritoIdToPass
+        animaleSmarritoIdToPass,
+        navigate
       )
     );
 
@@ -81,14 +83,14 @@ const VisitaForm = () => {
             Data visita
           </Form.Label>
           <Form.Control
-            className="inputLogin"
+            className="inputLogin mt-0"
             type="date"
             value={dataVisita}
             onChange={(e) => setDataVisita(e.target.value)}
           ></Form.Control>
 
           <Form.Control
-            className="inputLogin mt-0"
+            className="inputLogin"
             placeholder="Esame"
             type="text"
             value={esame}
@@ -115,7 +117,7 @@ const VisitaForm = () => {
           </div> */}
 
           <Form.Control
-            className="inputLogin mt-0"
+            className="inputLogin"
             type="text"
             placeholder="Descrizione cura"
             value={descrizioneCura}

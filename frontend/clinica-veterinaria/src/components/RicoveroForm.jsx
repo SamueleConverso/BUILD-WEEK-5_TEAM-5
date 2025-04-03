@@ -8,6 +8,7 @@ import { postRicovero } from "../redux/actions/ricovero.js";
 import { useParams } from "react-router-dom";
 import { getRicoveroById } from "../redux/actions/ricovero.js";
 import { putRicovero } from "../redux/actions/ricovero.js";
+import { useNavigate } from "react-router-dom";
 
 const RicoveroForm = () => {
   const [inCorso, setInCorso] = useState(false);
@@ -19,6 +20,7 @@ const RicoveroForm = () => {
   const [animaleSmarritoId, setAnimaleSmarritoId] = useState(0);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const animali = useSelector((state) => state.animale.animali);
   const animaliSmarriti = useSelector(
@@ -83,7 +85,8 @@ const RicoveroForm = () => {
         dataInizioRicovero,
         dataFineRicoveroToPass,
         animaleIdToPass,
-        animaleSmarritoIdToPass
+        animaleSmarritoIdToPass,
+        navigate
       )
     );
 
@@ -119,7 +122,8 @@ const RicoveroForm = () => {
         dataInizioRicovero,
         dataFineRicoveroToPass,
         animaleIdToPass,
-        animaleSmarritoIdToPass
+        animaleSmarritoIdToPass,
+        navigate
       )
     );
 

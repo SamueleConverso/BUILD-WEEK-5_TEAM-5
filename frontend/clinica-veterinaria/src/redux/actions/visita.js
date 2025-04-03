@@ -3,7 +3,8 @@ export const postVisita = (
   esame,
   descrizioneCura,
   animaleId,
-  animaleSmarritoId
+  animaleSmarritoId,
+  navigate
 ) => {
   return async () => {
     try {
@@ -25,6 +26,7 @@ export const postVisita = (
         const data = await response.json();
         console.log(data);
         //dispatch(getAnimali());
+        navigate("/clinica/listaVisite");
         alert("Visita aggiunta con successo!");
       } else {
         alert(

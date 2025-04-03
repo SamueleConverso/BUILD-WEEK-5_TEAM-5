@@ -65,7 +65,7 @@ const RicoveriList = () => {
                   ) : (
                     <td>microchip non presente</td>
                   )}
-                  <td>
+                  <td className="d-flex align-items-center justify-content-center gap-2">
                     {" "}
                     <button
                       className="btn btn-danger"
@@ -137,7 +137,7 @@ const RicoveriList = () => {
                   ) : (
                     <td>microchip non presente</td>
                   )}
-                  <td>
+                  <td className="d-flex align-items-center justify-content-center gap-2">
                     {" "}
                     <button
                       className="btn btn-danger"

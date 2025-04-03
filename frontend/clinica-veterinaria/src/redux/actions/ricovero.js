@@ -3,7 +3,8 @@ export const postRicovero = (
   dataInizioRicovero,
   dataFineRicovero,
   animaleId,
-  animaleSmarritoId
+  animaleSmarritoId,
+  navigate
 ) => {
   return async (dispatch) => {
     try {
@@ -26,6 +27,7 @@ export const postRicovero = (
         console.log(data);
         dispatch(getRicoveri());
         alert("Ricovero aggiunto con successo!");
+        navigate("/clinica/listaRicoveri");
       } else {
         alert("Errore! Forse non hai inserito tutti i campi richiesti.");
         throw new Error("Errore nella response di postRicovero");
@@ -88,7 +90,8 @@ export const putRicovero = (
   dataInizioRicovero,
   dataFineRicovero,
   animaleId,
-  animaleSmarritoId
+  animaleSmarritoId,
+  navigate
 ) => {
   return async (dispatch) => {
     try {
@@ -112,6 +115,7 @@ export const putRicovero = (
       if (response.ok) {
         alert("Ricovero modificato con successo!");
         dispatch(getRicoveri());
+        navigate("/clinica/listaRicoveri");
       } else {
         alert("Errore! Forse non hai inserito tutti i campi richiesti.");
         throw new Error("errore nella risposta di putRicovero");
