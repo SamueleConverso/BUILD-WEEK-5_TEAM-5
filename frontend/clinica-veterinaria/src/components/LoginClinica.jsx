@@ -42,10 +42,7 @@ const LoginClinica = () => {
   };
 
   return (
-    <div
-      className="container-fluid d-flex justify-content-center align-items-center"
-      style={{ height: "69.5dvh" }}
-    >
+    <div className="container-fluid d-flex justify-content-center align-items-center">
       {errorMessages.generic && (
         <p className="text-danger">{errorMessages.generic}</p>
       )}

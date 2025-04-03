@@ -1,6 +1,6 @@
 const FooterClinica = () => {
   return (
-    <div className="container-fluid bg-dark text-white-50 py-2">
+    <div className="container-fluid bg-dark text-white-50 py-2" id="footer">
       <div className="row align-items-center pb-3 border-bottom border-secondary">
         <div className="col-4">
           <div className="d-flex align-items-center">
