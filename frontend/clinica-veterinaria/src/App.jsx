@@ -51,6 +51,10 @@ function App() {
           element={<AnimaleDetails />}
         />
         <Route path="/clinica/formRicovero" element={<RicoveroForm />} />
+        <Route
+          path="/clinica/formRicovero/:ricoveroId"
+          element={<RicoveroForm />}
+        />
         <Route path="/clinica/listaRicoveri" element={<RicoveriList />} />
         <Route path="/clinica/formVisita" element={<VisitaForm />} />
         <Route path="/clinica/listaVisite" element={<VisiteList />} />

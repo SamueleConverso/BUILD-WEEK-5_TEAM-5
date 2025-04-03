@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAnimali } from "../redux/actions/animale.js";
 import { getAnimaliSmarriti } from "../redux/actions/animaleSmarrito.js";
 import { postRicovero } from "../redux/actions/ricovero.js";
+import { useParams } from "react-router-dom";
+import { getRicoveroById } from "../redux/actions/ricovero.js";
+import { putRicovero } from "../redux/actions/ricovero.js";
 
 const RicoveroForm = () => {
   const [inCorso, setInCorso] = useState(false);
@@ -21,8 +24,14 @@ const RicoveroForm = () => {
   const animaliSmarriti = useSelector(
     (state) => state.animaliSmarriti.animaliSmarriti
   );
+  const ricovero = useSelector((state) => state.ricovero.ricovero);
+
+  const ricoveroId = useParams();
 
   useEffect(() => {
+    if (ricoveroId) {
+      dispatch(getRicoveroById(ricoveroId));
+    }
     dispatch(getAnimali());
     dispatch(getAnimaliSmarriti());
   }, []);
@@ -55,17 +64,40 @@ const RicoveroForm = () => {
       )
     );
 
-    console.log(
-      "Descrizione:",
-      descrizione,
-      "Data inizio ricovero",
-      dataInizioRicovero,
-      "Data fine ricovero",
-      dataFineRicoveroToPass,
-      "Animale id",
-      animaleIdToPass,
-      "Animale smarrito id",
-      animaleSmarritoIdToPass
+    setDescrizione("");
+    setDataFineRicovero("");
+    setDataInizioRicovero("");
+    setAnimaleId("");
+    setAnimaleSmarritoId("");
+  };
+
+  const handleUpdate = () => {
+    let animaleIdToPass = null;
+    let animaleSmarritoIdToPass = null;
+    if (selectedOption === "animale") {
+      animaleSmarritoIdToPass = null;
+      animaleIdToPass = animaleId;
+    } else {
+      animaleIdToPass = null;
+      animaleSmarritoIdToPass = animaleSmarritoId;
+    }
+
+    let dataFineRicoveroToPass = null;
+    if (!inCorso) {
+      dataFineRicoveroToPass = dataFineRicovero;
+    } else {
+      dataFineRicoveroToPass = null;
+    }
+
+    dispatch(
+      putRicovero(
+        ricoveroId,
+        descrizione,
+        dataInizioRicovero,
+        dataFineRicoveroToPass,
+        animaleIdToPass,
+        animaleSmarritoIdToPass
+      )
     );
 
     setDescrizione("");
@@ -84,14 +116,18 @@ const RicoveroForm = () => {
           className="formLogin"
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit();
+            if (ricoveroId) {
+              handleUpdate();
+            } else {
+              handleSubmit();
+            }
           }}
         >
           <Form.Control
             className="inputLogin"
             placeholder="Descrizione"
             type="text"
-            value={descrizione}
+            value={ricovero.descrizione || descrizione}
             onChange={(e) => setDescrizione(e.target.value)}
           ></Form.Control>
 
@@ -101,7 +137,7 @@ const RicoveroForm = () => {
           <Form.Control
             className="inputLogin mt-0"
             type="date"
-            value={dataInizioRicovero}
+            value={ricovero.dataInizioRicovero || dataInizioRicovero}
             onChange={(e) => setDataInizioRicovero(e.target.value)}
           ></Form.Control>
 
@@ -132,7 +168,7 @@ const RicoveroForm = () => {
               <Form.Control
                 className="inputLogin mt-0"
                 type="date"
-                value={dataFineRicovero}
+                value={ricovero.dataFineRicovero || dataFineRicovero}
                 onChange={(e) => setDataFineRicovero(e.target.value)}
               ></Form.Control>
             </>
@@ -160,7 +196,7 @@ const RicoveroForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={animaleId}
+                value={ricovero.animaleId || animaleId}
                 onChange={(e) => setAnimaleId(e.target.value)}
               >
                 <option className=" text-center" value="">
@@ -183,7 +219,7 @@ const RicoveroForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={animaleSmarritoId}
+                value={ricovero.animaleSmarritoId || animaleSmarritoId}
                 onChange={(e) => setAnimaleSmarritoId(e.target.value)}
               >
                 <option className=" text-center" value="">
