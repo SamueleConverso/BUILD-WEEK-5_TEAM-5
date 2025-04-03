@@ -4,18 +4,19 @@ import Navbar from "react-bootstrap/Navbar";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavClinica = () => {
   const location = useLocation();
   const [role, setRole] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
-
+  const loginSuccess = useSelector((state) => state.animale.loginSuccess);
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
+
         console.log(decodedToken);
         const userRole =
           decodedToken[
@@ -38,7 +39,7 @@ const NavClinica = () => {
     } else {
       setIsAuthorized(false);
     }
-  }, []);
+  }, [loginSuccess]);
 
   return (
     <>

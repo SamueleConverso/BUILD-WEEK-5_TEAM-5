@@ -22,7 +22,7 @@ export const register = (nome, cognome, email, password) => {
         navigate("/login");
       } else {
         dispatch({
-          action: "REGISTER_ERROR",
+          type: "REGISTER_ERROR",
           payload: "Errore nella registrazione.",
         });
         throw new Error("Errore nella response di registrazione");
@@ -50,9 +50,11 @@ export const login = (email, password) => {
         const data = await response.json();
         console.log(data);
         localStorage.setItem("jwtToken", data.token);
+        dispatch({ type: "LOGIN_SUCCESS", payload: true });
+        console.log("SONO QUI");
         navigate("/");
       } else {
-        dispatch({ action: "LOGIN_ERROR", payload: "Errore nel login." });
+        dispatch({ type: "LOGIN_ERROR", payload: "Errore nel login." });
         throw new Error("Errore nella response di login");
       }
     } catch (error) {
