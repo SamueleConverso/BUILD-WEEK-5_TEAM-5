@@ -32,17 +32,37 @@ const VisitaForm = () => {
     dispatch(getAnimaliSmarriti());
   }, []);
 
-  useEffect(() => {
-    if (animali) {
-      animali.forEach((a) => {
-        console.log(a.nome);
-      });
-      console.log(animaliSmarriti);
-    }
-  }, [animali]);
-
   const handleSubmit = () => {
-    dispatch(postVisita());
+    let animaleIdToPass = null;
+    let animaleSmarritoIdToPass = null;
+    if (selectedOption === "animale") {
+      animaleSmarritoIdToPass = null;
+      animaleIdToPass = animaleId;
+    } else {
+      animaleIdToPass = null;
+      animaleSmarritoIdToPass = animaleSmarritoId;
+    }
+
+    if (!dataVisita) {
+      alert("Inserire la data della visita");
+      return;
+    }
+
+    dispatch(
+      postVisita(
+        dataVisita,
+        esame,
+        descrizioneCura,
+        animaleIdToPass,
+        animaleSmarritoIdToPass
+      )
+    );
+
+    setDataVisita("");
+    setEsame("");
+    setDescrizioneCura("");
+    setAnimaleId(0);
+    setAnimaleSmarritoId(0);
   };
 
   return (
@@ -57,25 +77,25 @@ const VisitaForm = () => {
             handleSubmit();
           }}
         >
+          <Form.Label className="mt-2 mb-0 ps-2" id="microchip">
+            Data visita
+          </Form.Label>
           <Form.Control
             className="inputLogin"
-            placeholder="Descrizione"
             type="date"
             value={dataVisita}
             onChange={(e) => setDataVisita(e.target.value)}
           ></Form.Control>
 
-          <Form.Label className="mt-2 mb-0 ps-2" id="microchip">
-            Data inizio ricovero
-          </Form.Label>
           <Form.Control
             className="inputLogin mt-0"
-            type="date"
-            //   value={dataRegistrazione}
-            //   onChange={(e) => setDataRegistrazione(e.target.value)}
+            placeholder="Esame"
+            type="text"
+            value={esame}
+            onChange={(e) => setEsame(e.target.value)}
           ></Form.Control>
 
-          <div className="ps-3 d-flex align-items-center inputLogin">
+          {/* <div className="ps-3 d-flex align-items-center inputLogin">
             <input
               type="checkbox"
               id="cbx"
@@ -92,21 +112,15 @@ const VisitaForm = () => {
             <p className="ps-2" id="microchip">
               In corso
             </p>
-          </div>
-          {!inCorso && (
-            <>
-              {" "}
-              <Form.Label className="mt-2 mb-0 ps-2" id="microchip">
-                Data fine ricovero
-              </Form.Label>
-              <Form.Control
-                className="inputLogin mt-0"
-                type="date"
-                //   value={numeroMicrochip}
-                //   onChange={(e) => setNumeroMicrochip(e.target.value)
-              ></Form.Control>
-            </>
-          )}
+          </div> */}
+
+          <Form.Control
+            className="inputLogin mt-0"
+            type="text"
+            placeholder="Descrizione cura"
+            value={descrizioneCura}
+            onChange={(e) => setDescrizioneCura(e.target.value)}
+          ></Form.Control>
 
           <select
             id="tipoAnimale"
@@ -130,8 +144,8 @@ const VisitaForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={selectedAnimaleOption}
-                onChange={(e) => setSelectedAnimaleOption(e.target.value)}
+                value={animaleId}
+                onChange={(e) => setAnimaleId(e.target.value)}
               >
                 <option className="text-center" value="">
                   -- Scegli l'animale --
@@ -153,8 +167,8 @@ const VisitaForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={selectedAnimaleOption}
-                onChange={(e) => setSelectedAnimaleOption(e.target.value)}
+                value={animaleSmarritoId}
+                onChange={(e) => setAnimaleSmarritoId(e.target.value)}
               >
                 <option className="text-center" value="">
                   -- Scegli l'animale smarrito--
@@ -174,7 +188,7 @@ const VisitaForm = () => {
               </select>
             ))}
           <Button className="login-button" type="submit">
-            Aggiungi ricovero
+            Aggiungi visita
           </Button>
         </Form>
       </div>
