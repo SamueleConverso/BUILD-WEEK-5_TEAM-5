@@ -77,7 +77,7 @@ const RicoveroForm = () => {
                 className="inputLogin mt-0"
                 type="date"
                 //   value={numeroMicrochip}
-                //   onChange={(e) => setNumeroMicrochip(e.target.value)}
+                //   onChange={(e) => setNumeroMicrochip(e.target.value)
               ></Form.Control>
             </>
           )}
