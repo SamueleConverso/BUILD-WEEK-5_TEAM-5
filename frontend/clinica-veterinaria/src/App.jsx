@@ -17,6 +17,8 @@ import RicoveriList from "./components/RicoveriList";
 import RicoveroForm from "./components/RicoveroForm";
 import VisiteList from "./components/VisiteList";
 import VisitaForm from "./components/VisitaForm";
+import EditAnimale from "./components/EditAnimale";
+
 
 function App() {
   return (
@@ -41,10 +43,9 @@ function App() {
         />
         <Route path="/clinica/formRicovero" element={<RicoveroForm />} />
         <Route path="clinica/listaRicoveri" element={<RicoveriList />} />
-
         <Route path="/clinica/formVisita" element={<VisitaForm />} />
         <Route path="clinica/listaVisite" element={<VisiteList />} />
-
+        <Route path="/animale-edit/:animaleId" element={<EditAnimale />} />
         <Route path="/login" element={<LoginClinica />} />
         <Route path="/register" element={<RegisterClinica />} />
       </Routes>

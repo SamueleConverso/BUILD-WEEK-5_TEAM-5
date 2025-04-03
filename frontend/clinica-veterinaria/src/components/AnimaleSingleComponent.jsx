@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteAnimale } from "../redux/actions/animale.js";
+import { useNavigate } from "react-router-dom";
 
 function AnimaleSingleComponent(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleDelete = (id) => {
+    dispatch(deleteAnimale(id));
+  };
+
+  const handlePut = (id) => {
+    navigate(`/animale-edit/${id}`);
+  };
   return (
     <div className="card" style={{ width: "100%" }}>
       <img
@@ -20,10 +32,25 @@ function AnimaleSingleComponent(props) {
           >
             Dettagli
           </Link>
-          <Link to="" className="btn btn-danger">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(props.animale.animaleId);
+            }}
+            className="btn btn-danger"
+          >
             Elimina
-          </Link>
+          </button>
         </div>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            handlePut(props.animale.animaleId);
+          }}
+          className="btn btn-warning"
+        >
+          Modifica
+        </button>
       </div>
     </div>
   );

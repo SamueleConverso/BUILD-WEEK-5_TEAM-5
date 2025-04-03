@@ -16,12 +16,21 @@ function AddAnimaleForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    let microchipToPass = numeroMicrochip === 0 ? false : true;
-    let numeroMicrochipToPass =
-      microchipToPass === false ? null : numeroMicrochip;
+    let microchipToPass = null;
+    let numeroMicrochipToPass = null;
 
-    //setMicrochip(numeroMicrochip === 0 ? false : true);
-    //setNumeroMicrochip(microchip === false ? null : numeroMicrochip);
+    if (!microchip) {
+      setNumeroMicrochip(0);
+      microchipToPass = false;
+      numeroMicrochipToPass = null;
+    } else {
+      microchipToPass = true;
+      numeroMicrochipToPass = numeroMicrochip;
+      if (numeroMicrochipToPass === 0) {
+        microchipToPass = false;
+        numeroMicrochipToPass = null;
+      }
+    }
 
     dispatch(
       postAnimale(
@@ -154,10 +163,6 @@ function AddAnimaleForm() {
           <Button
             className="login-button"
             type="submit"
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   handleSubmit();
-            // }}
           >
             Aggiungi animale
           </Button>
