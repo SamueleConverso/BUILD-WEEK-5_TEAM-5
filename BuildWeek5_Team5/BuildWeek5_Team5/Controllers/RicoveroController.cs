@@ -154,7 +154,7 @@ namespace BuildWeek5_Team5.Controllers {
 
             return Ok(new {
                 message = "Ricovero trovato con successo",
-                animale = ricoveroResponse
+                ricovero = ricoveroResponse
             });
         }
 

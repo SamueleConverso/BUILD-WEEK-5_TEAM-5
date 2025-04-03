@@ -71,11 +71,11 @@ const RicoveriList = () => {
                       className="btn btn-danger"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleDelete(ricovero.animale.animaleId);
+                        handleDelete(ricovero.ricoveroId);
                       }}
                     >
                       {" "}
-                      <i class="bi bi-trash3"></i>{" "}
+                      <i className="bi bi-trash3"></i>{" "}
                     </button>{" "}
                     <button
                       className="btn btn-warning"
@@ -86,7 +86,7 @@ const RicoveriList = () => {
                         );
                       }}
                     >
-                      <i class="bi bi-pencil-square"></i>
+                      <i className="bi bi-pencil-square"></i>
                     </button>{" "}
                   </td>
                 </tr>
@@ -143,13 +143,11 @@ const RicoveriList = () => {
                       className="btn btn-danger"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleDelete(
-                          ricovero.animaleSmarrito.animaleSmarritoId
-                        );
+                        handleDelete(ricovero.ricoveroId);
                       }}
                     >
                       {" "}
-                      <i class="bi bi-trash3"></i>{" "}
+                      <i className="bi bi-trash3"></i>{" "}
                     </button>{" "}
                     <button
                       className="btn btn-warning"
@@ -160,7 +158,7 @@ const RicoveriList = () => {
                         );
                       }}
                     >
-                      <i class="bi bi-pencil-square"></i>
+                      <i className="bi bi-pencil-square"></i>
                     </button>
                   </td>
                 </tr>
