@@ -12,6 +12,7 @@ import NavClinica from "./components/NavClinica";
 import AnimaleManagementPage from "./components/AnimaleManagementPage";
 import { Link } from "react-router-dom";
 import AnimaleDetails from "./components/AnimaleDetails";
+import EditAnimale from "./components/EditAnimale";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           path="/animale-details/:animaleId"
           element={<AnimaleDetails />}
         />
+        <Route path="/animale-edit/:animaleId" element={<EditAnimale />} />
         <Route path="/login" element={<LoginClinica />} />
         <Route path="/register" element={<RegisterClinica />} />
       </Routes>

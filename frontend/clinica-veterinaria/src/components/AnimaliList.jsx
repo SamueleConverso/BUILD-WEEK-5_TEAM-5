@@ -15,7 +15,7 @@ function AnimaliList() {
 
   return (
     <>
-      <div className="container d-flex justify-content-center">
+      <div className="container d-flex justify-content-center mb-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           {animali.map((animale) => {
             return (

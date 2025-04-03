@@ -1,9 +1,16 @@
-import { Button, Form } from "react-bootstrap";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { postAnimale } from "../redux/actions/animale.js";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAnimaleById } from "../redux/actions/animale";
+import { useParams } from "react-router-dom";
+import { putAnimale } from "../redux/actions/animale.js";
+import { Form, Button } from "react-bootstrap";
 
-function AddAnimaleForm() {
+function EditAnimale() {
+  const dispatch = useDispatch();
+  const { animaleId } = useParams();
+  const animale = useSelector((state) => state.animale.animale);
+
   const [dataRegistrazione, setDataRegistrazione] = useState("");
   const [nome, setNome] = useState("");
   const [specie, setSpecie] = useState("");
@@ -13,9 +20,26 @@ function AddAnimaleForm() {
   const [numeroMicrochip, setNumeroMicrochip] = useState(0);
   const [nominativoProprietario, setNominativoProprietario] = useState("");
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAnimaleById(animaleId));
+  }, []);
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (animale) {
+      setDataRegistrazione(animale.dataRegistrazione);
+      setNome(animale.nome);
+      setSpecie(animale.specie);
+      setColore(animale.colore);
+      setDataNascita(animale.dataNascita);
+      setMicrochip(animale.microchip);
+      if (animale.microchip) {
+        setNumeroMicrochip(animale.numeroMicrochip);
+      }
+      setNominativoProprietario(animale.nominativoProprietario);
+    }
+  }, [animale]);
+
+  const handlePut = () => {
     let microchipToPass = null;
     let numeroMicrochipToPass = null;
 
@@ -33,7 +57,8 @@ function AddAnimaleForm() {
     }
 
     dispatch(
-      postAnimale(
+      putAnimale(
+        animaleId,
         dataRegistrazione,
         nome,
         specie,
@@ -45,14 +70,14 @@ function AddAnimaleForm() {
       )
     );
 
-    setDataRegistrazione("");
-    setNome("");
-    setSpecie("");
-    setColore("");
-    setDataNascita("");
-    setMicrochip(false);
-    setNumeroMicrochip(0);
-    setNominativoProprietario("");
+    // setDataRegistrazione("");
+    // setNome("");
+    // setSpecie("");
+    // setColore("");
+    // setDataNascita("");
+    // setMicrochip(false);
+    // setNumeroMicrochip(0);
+    // setNominativoProprietario("");
 
     console.log(
       dataRegistrazione,
@@ -65,16 +90,15 @@ function AddAnimaleForm() {
       nominativoProprietario
     );
   };
-
   return (
     <div className="container-fluid d-flex flex-column mb-5 containerLogin containerAnimali">
-      <h1 className="heading">Aggiungi un nuovo animale</h1>
+      <h1 className="heading">Modifica l'animale</h1>
 
       <Form
         className="formLogin"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit();
+          handlePut();
         }}
       >
         <Form.Label className="m-0 ps-2" id="microchip">
@@ -160,11 +184,11 @@ function AddAnimaleForm() {
           onChange={(e) => setNominativoProprietario(e.target.value)}
         ></Form.Control>
         <Button className="login-button" type="submit">
-          Aggiungi animale
+          Modifica animale
         </Button>
       </Form>
     </div>
   );
 }
 
-export default AddAnimaleForm;
+export default EditAnimale;
