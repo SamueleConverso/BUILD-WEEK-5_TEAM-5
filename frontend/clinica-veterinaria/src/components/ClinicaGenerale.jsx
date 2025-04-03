@@ -135,7 +135,7 @@ const ClinicaGenerale = () => {
         </div>
 
         <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
-          <Link to={"clinica/listaVisite"} className="cardClinica">
+          <Link to={"/clinica/listaVisite"} className="cardClinica">
             <div className="contentClinica">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
