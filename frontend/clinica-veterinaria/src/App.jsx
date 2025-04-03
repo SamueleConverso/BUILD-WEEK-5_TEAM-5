@@ -18,8 +18,8 @@ import RicoveroForm from "./components/RicoveroForm";
 import VisiteList from "./components/VisiteList";
 import VisitaForm from "./components/VisitaForm";
 import EditAnimale from "./components/EditAnimale";
-import AnimaleSmarritoList from './components/AnimaleSmarritoList';
-import AnimaleSmarritoDetails from './components/AnimaleSmarritoDetails';
+import AnimaleSmarritoList from "./components/AnimaleSmarritoList";
+import AnimaleSmarritoDetails from "./components/AnimaleSmarritoDetails";
 
 function App() {
   return (
@@ -28,8 +28,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/clinica"
-          //path="/animali"
+          //path="/clinica"
+          path="/animali"
           element={<ClinicaGenerale />}
         />
         <Route path="/clinica/formAnimali" element={<AddAnimaleForm />} />
@@ -38,10 +38,16 @@ function App() {
           path="/clinica/formAnimaliSmarriti"
           element={<CreaAnimaleSmarrito />}
         />
-        <Route path='/clinica/animaliSmarriti' element={<AnimaleSmarritoList />} />
-        <Route path="/clinica/animaliSmarriti/:id" element={<AnimaleSmarritoDetails />} />
         <Route
-          path='/animale-details/:animaleId'
+          path="/clinica/animaliSmarriti"
+          element={<AnimaleSmarritoList />}
+        />
+        <Route
+          path="/clinica/animaliSmarriti/:id"
+          element={<AnimaleSmarritoDetails />}
+        />
+        <Route
+          path="/animale-details/:animaleId"
           element={<AnimaleDetails />}
         />
         <Route path="/clinica/formRicovero" element={<RicoveroForm />} />

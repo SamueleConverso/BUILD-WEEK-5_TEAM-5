@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const ClinicaGenerale = () => {
   return (
-    <div className="container py-5">
-      <div className="row">
-        <div className="col-3 my-5">
+    <div className="container-fluid py-5">
+      <div className="row justify-content-center align-items-center">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"/clinica/listaAnimali"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -25,7 +25,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"/clinica/animaliSmarriti"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -48,7 +48,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"/clinica/formAnimali"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -69,7 +69,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"/clinica/formAnimaliSmarriti"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -92,7 +92,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"clinica/listaRicoveri"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -113,7 +113,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"/clinica/formRicovero"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -134,7 +134,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"clinica/listaVisite"} className="cardClinica">
             <div className="contentClinica">
               <svg
@@ -155,7 +155,7 @@ const ClinicaGenerale = () => {
           </Link>
         </div>
 
-        <div className="col-3 my-5">
+        <div className="col-6 col-lg-4 col-xl-3 my-5 d-flex justify-content-center">
           <Link to={"/clinica/formVisita"} className="cardClinica">
             <div className="contentClinica">
               <svg

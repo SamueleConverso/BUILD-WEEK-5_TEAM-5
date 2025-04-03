@@ -321,3 +321,33 @@ a {
   width: 100%;
   height: 100%;
 }
+
+@media screen and (max-width: 575px) {
+  .contentClinica svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .contentClinica .para {
+    font-size: 12px;
+  }
+
+  .contentClinica {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .contentClinica svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .contentClinica .para {
+    font-size: 15px;
+  }
+
+  .contentClinica {
+    padding: 25px;
+  }
+}
