@@ -8,8 +8,7 @@ const RicoveroForm = () => {
   const [inCorso, setInCorso] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedAnimaleOption, setSelectedAnimaleOption] = useState("");
-  //const [selectedAnimaleSmarritoOption, setSelectedAnimaleSmarritoOption] =
-  useState("");
+  //const [selectedAnimaleSmarritoOption, setSelectedAnimaleSmarritoOption] = useState("");
 
   const dispatch = useDispatch();
 

@@ -1,5 +1,5 @@
-export const register = (nome, cognome, email, password) => {
-  return async (dispatch, navigate) => {
+export const register = (nome, cognome, email, password, navigate) => {
+  return async (dispatch) => {
     try {
       const response = await fetch(
         "https://localhost:7138/api/Account/register",
@@ -33,8 +33,8 @@ export const register = (nome, cognome, email, password) => {
   };
 };
 
-export const login = (email, password) => {
-  return async (dispatch, navigate) => {
+export const login = (email, password, navigate) => {
+  return async (dispatch) => {
     try {
       const response = await fetch("https://localhost:7138/api/Account/login", {
         headers: {

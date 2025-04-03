@@ -38,7 +38,7 @@ const LoginClinica = () => {
     setEmail("");
     setErrorMessages({});
     e.target.reset();
-    dispatch(login(email, password), navigate("/"));
+    dispatch(login(email, password, navigate));
   };
 
   return (

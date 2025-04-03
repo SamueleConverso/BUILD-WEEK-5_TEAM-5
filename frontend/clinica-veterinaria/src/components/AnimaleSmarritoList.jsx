@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getAnimaliSmarriti } from '../redux/actions/animaleSmarrito';
-import AnimaleSmarritoCard from './AnimaleSmarritoCard'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getAnimaliSmarriti } from "../redux/actions/animaleSmarrito";
+import AnimaleSmarritoCard from "./AnimaleSmarritoCard";
 
 function AnimaleSmarritoList() {
   const dispatch = useDispatch();
 
-  const { animaliSmarriti = [], loading, error: reduxError } = useSelector(state => state.animaliSmarriti || {});
+  const {
+    animaliSmarriti = [],
+    loading,
+    error: reduxError,
+  } = useSelector((state) => state.animaliSmarriti || {});
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -22,6 +27,16 @@ function AnimaleSmarritoList() {
 
     fetchData();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (animaliSmarriti) {
+      // animaliSmarriti.forEach((a) => {
+      //   console.log(a.nome);
+      //   console.log(a.animaleSmarritoId);
+      // });
+      console.log(animaliSmarriti);
+    }
+  }, [animaliSmarriti]);
 
   if (loading && (!animaliSmarriti || animaliSmarriti.length === 0)) {
     return (
@@ -46,7 +61,7 @@ function AnimaleSmarritoList() {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Animali Smarriti</h2>        
+        <h2>Animali Smarriti</h2>
       </div>
 
       {!animaliSmarriti || animaliSmarriti.length === 0 ? (
@@ -56,8 +71,8 @@ function AnimaleSmarritoList() {
       ) : (
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           {animaliSmarriti.map((animale) => (
-            <div 
-              className="col d-flex justify-content-center" 
+            <div
+              className="col d-flex justify-content-center"
               key={animale.animaleSmarritoId}
             >
               <AnimaleSmarritoCard animale={animale} />
