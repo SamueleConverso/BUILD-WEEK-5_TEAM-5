@@ -42,7 +42,7 @@ const RegisterClinica = () => {
     setEmail("");
     setErrorMessages({});
     e.target.reset();
-    dispatch(register(nome, cognome, email, password), navigate("/login"));
+    dispatch(register(nome, cognome, email, password, register, navigate));
   };
 
   return (

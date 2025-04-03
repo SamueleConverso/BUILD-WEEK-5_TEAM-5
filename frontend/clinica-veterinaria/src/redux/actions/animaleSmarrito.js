@@ -51,7 +51,7 @@ export const getAnimaliSmarriti = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
-        }
+        },
       });
 
       if (response.ok) {
@@ -60,7 +60,7 @@ export const getAnimaliSmarriti = () => {
 
         dispatch({
           type: "GET_ANIMALI_SMARRITI_SUCCESS",
-          payload: data.animaliSmarriti || []
+          payload: data.animaliSmarriti,
         });
 
         return data;
@@ -79,12 +79,15 @@ export const getAnimaleSmarritoById = (id) => {
     dispatch({ type: "GET_ANIMALE_SMARRITO_BY_ID_REQUEST" });
 
     try {
-      const response = await fetch(`https://localhost:7138/animaleSmarrito?id=${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+      const response = await fetch(
+        `https://localhost:7138/animaleSmarrito?id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+          },
         }
-      });
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -92,7 +95,7 @@ export const getAnimaleSmarritoById = (id) => {
 
         dispatch({
           type: "GET_ANIMALE_SMARRITO_BY_ID_SUCCESS",
-          payload: data.animaleSmarrito
+          payload: data.animaleSmarrito,
         });
 
         return data;
