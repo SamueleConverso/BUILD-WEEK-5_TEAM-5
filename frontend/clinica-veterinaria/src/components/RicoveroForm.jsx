@@ -12,8 +12,8 @@ const RicoveroForm = () => {
   const [descrizione, setDescrizione] = useState("");
   const [dataInizioRicovero, setDataInizioRicovero] = useState("");
   const [dataFineRicovero, setDataFineRicovero] = useState("");
-  const [animaleId, setAnimaleId] = useState(null);
-  const [animaleSmarritoId, setAnimaleSmarritoId] = useState(null);
+  const [animaleId, setAnimaleId] = useState(0);
+  const [animaleSmarritoId, setAnimaleSmarritoId] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -28,14 +28,44 @@ const RicoveroForm = () => {
   }, []);
 
   const handleSubmit = () => {
+    let animaleIdToPass = null;
+    let animaleSmarritoIdToPass = null;
+    if (selectedOption === "animale") {
+      animaleSmarritoIdToPass = null;
+      animaleIdToPass = animaleId;
+    } else {
+      animaleIdToPass = null;
+      animaleSmarritoIdToPass = animaleSmarritoId;
+    }
+
+    let dataFineRicoveroToPass = null;
+    if (!inCorso) {
+      dataFineRicoveroToPass = dataFineRicovero;
+    } else {
+      dataFineRicoveroToPass = null;
+    }
+
     dispatch(
       postRicovero(
         descrizione,
-        dataFineRicovero,
-        dataFineRicovero,
-        animaleId,
-        animaleSmarritoId
+        dataInizioRicovero,
+        dataFineRicoveroToPass,
+        animaleIdToPass,
+        animaleSmarritoIdToPass
       )
+    );
+
+    console.log(
+      "Descrizione:",
+      descrizione,
+      "Data inizio ricovero",
+      dataInizioRicovero,
+      "Data fine ricovero",
+      dataFineRicoveroToPass,
+      "Animale id",
+      animaleIdToPass,
+      "Animale smarrito id",
+      animaleSmarritoIdToPass
     );
 
     setDescrizione("");
@@ -130,45 +160,47 @@ const RicoveroForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={animaleSmarritoId}
-                onChange={(e) => setAnimaleSmarritoId(e.target.value)}
-              >
-                <option className=" text-center" value="">
-                  -- Scegli l'animale --
-                </option>
-                {animaliSmarriti.map((animale) => {
-                  return (
-                    <option
-                      className=" text-center"
-                      key={animale.animaleSmarritoId}
-                      value={animale.animaleSmarritoId}
-                    >
-                      {animale.nome}
-                    </option>
-                  );
-                })}
-              </select>
-            ) : (
-              <select
-                id="tipoAnimale"
-                className="inputLogin"
                 value={animaleId}
                 onChange={(e) => setAnimaleId(e.target.value)}
               >
                 <option className=" text-center" value="">
                   -- Scegli l'animale --
                 </option>
-                {animali.map((animale) => {
-                  return (
-                    <option
-                      className=" text-center"
-                      key={animale.animaleId}
-                      value={animale.animaleId}
-                    >
-                      {animale.nome}
-                    </option>
-                  );
-                })}
+                {animali &&
+                  animali.map((animale) => {
+                    return (
+                      <option
+                        className=" text-center"
+                        key={animale.animaleId}
+                        value={animale.animaleId}
+                      >
+                        {animale.nome}
+                      </option>
+                    );
+                  })}
+              </select>
+            ) : (
+              <select
+                id="tipoAnimale"
+                className="inputLogin"
+                value={animaleSmarritoId}
+                onChange={(e) => setAnimaleSmarritoId(e.target.value)}
+              >
+                <option className=" text-center" value="">
+                  -- Scegli l'animale --
+                </option>
+                {animaliSmarriti &&
+                  animaliSmarriti.map((animale) => {
+                    return (
+                      <option
+                        className=" text-center"
+                        key={animale.animaleSmarritoId}
+                        value={animale.animaleSmarritoId}
+                      >
+                        {animale.nome}
+                      </option>
+                    );
+                  })}
               </select>
             ))}
           <Button className="login-button" type="submit">

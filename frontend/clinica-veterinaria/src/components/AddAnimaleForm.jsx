@@ -160,10 +160,7 @@ function AddAnimaleForm() {
             value={nominativoProprietario}
             onChange={(e) => setNominativoProprietario(e.target.value)}
           ></Form.Control>
-          <Button
-            className="login-button"
-            type="submit"
-          >
+          <Button className="login-button" type="submit">
             Aggiungi animale
           </Button>
         </Form>

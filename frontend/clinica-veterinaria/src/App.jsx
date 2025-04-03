@@ -28,8 +28,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          //path="/clinica"
-          path="/animali"
+          path="/clinica"
+          //path="/animali"
           element={<ClinicaGenerale />}
         />
         <Route path="/clinica/formAnimali" element={<AddAnimaleForm />} />
