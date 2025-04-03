@@ -35,97 +35,87 @@ const FormAnimaleSmarrito = ({ isLoading }) => {
   };
 
   return (
-    <div className="card mb-4">
-      <div className="card-header">
-        <h5>Registra Nuovo Animale Smarrito</h5>
-      </div>
+    <div className="mb-4 containerLogin">
+      <h5 className="heading">Registrazione animale smarrito</h5>
       <div className="card-body">
         <form
+          className="formLogin"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
           }}
         >
-          <div className="mb-3">
-            <label htmlFor="nome" className="form-label">
-              Nome
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              placeholder="Inserisci il nome dell'animale"
-            />
-          </div>
+          <input
+            type="text"
+            className="form-control inputLogin"
+            id="nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Nome animale"
+          />
 
-          <div className="mb-3">
-            <label htmlFor="specie" className="form-label">
-              Specie
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="specie"
-              value={specie}
-              onChange={(e) => setSpecie(e.target.value)}
-              placeholder="Inserisci la specie (es. Cane, Gatto)"
-            />
-          </div>
+          <input
+            type="text"
+            className="form-control inputLogin"
+            id="specie"
+            value={specie}
+            onChange={(e) => setSpecie(e.target.value)}
+            placeholder="Specie (es. Cane, Gatto)"
+          />
 
-          <div className="mb-3">
-            <label htmlFor="colore" className="form-label">
-              Colore
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="colore"
-              value={colore}
-              onChange={(e) => setColore(e.target.value)}
-              placeholder="Inserisci il colore dell'animale"
-            />
-          </div>
+          <input
+            type="text"
+            className="form-control inputLogin"
+            id="colore"
+            value={colore}
+            onChange={(e) => setColore(e.target.value)}
+            placeholder="Colore animale"
+          />
 
-          <div className="mb-3 form-check">
+          <div className="ps-3 d-flex align-items-center inputLogin">
             <input
               type="checkbox"
-              className="form-check-input"
-              id="microchip"
+              id="cbx"
+              className=" d-none"
               checked={microchip}
               onChange={(e) => setMicrochip(e.target.checked)}
             />
-            <label className="form-check-label" htmlFor="microchip">
-              Microchip
+            <label for="cbx" className="d-flex align-items-center check">
+              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                <polyline points="1 9 7 14 15 4"></polyline>
+              </svg>
             </label>
+            <p className="ps-2" id="microchip">
+              Microchip
+            </p>
           </div>
 
           {microchip && (
-            <div className="mb-3">
-              <label htmlFor="numeroMicrochip" className="form-label">
-                Numero Microchip
-              </label>
+            <>
               <input
                 type="number"
-                className="form-control"
+                className="form-control inputLogin"
                 id="numeroMicrochip"
                 value={numeroMicrochip}
                 onChange={(e) => setNumeroMicrochip(e.target.value)}
-                placeholder="Inserisci il numero del microchip"
+                placeholder="Numero microchip"
               />
-            </div>
+            </>
           )}
 
-          <div className="d-flex gap-2">
+          <div>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn login-button"
               disabled={isLoading}
             >
               {isLoading ? "Caricamento..." : "Registra"}
             </button>
-            <a href="/animali-smarriti" className="btn btn-secondary">
+            <a
+              href="/animali-smarriti"
+              className="btn btn-secondary annulla-button"
+            >
               Annulla
             </a>
           </div>

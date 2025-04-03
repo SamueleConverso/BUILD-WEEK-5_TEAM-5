@@ -28,9 +28,7 @@ const CreaAnimaleSmarrito = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Registra Nuovo Animale Smarrito</h2>
-
+    <div className="container-fluid d-flex justify-content-center">
       {success && (
         <div className="alert alert-success">
           Animale smarrito registrato con successo! Verrai reindirizzato alla

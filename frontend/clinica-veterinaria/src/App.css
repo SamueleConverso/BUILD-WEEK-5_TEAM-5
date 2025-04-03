@@ -41,8 +41,7 @@ a {
 /* FORM ACCEDI/REGISTRATI */
 
 .containerLogin {
-  max-width: 450px;
-  max-height: 600px;
+  max-width: 500px;
   background: #f8f9fd;
   background: linear-gradient(
     0deg,
@@ -54,6 +53,10 @@ a {
   border: 5px solid rgb(255, 255, 255);
   box-shadow: rgba(255, 100, 100, 0.7) 0px 30px 30px -25px;
   margin: 20px;
+}
+
+.containerAnimali {
+  max-width: 550px;
 }
 
 .heading {
@@ -79,7 +82,11 @@ a {
 }
 
 .formLogin .inputLogin::-moz-placeholder {
-  color: rgb(170, 170, 170);
+  color: rgb(170, 170, 170) !important;
+}
+
+#microchip {
+  color: rgb(170, 170, 170) !important;
 }
 
 .formLogin .inputLogin::placeholder {
@@ -91,7 +98,8 @@ a {
   border-inline: 2px solid rgb(190, 30, 30);
 }
 
-.formLogin .login-button {
+.formLogin .login-button,
+.annulla-button {
   display: block;
   width: 100%;
   font-weight: bold;
@@ -109,7 +117,8 @@ a {
   transition: all 0.2s ease-in-out;
 }
 
-.formLogin .login-button:hover {
+.formLogin .login-button:hover,
+.annulla-button:hover {
   transform: scale(1.03);
   box-shadow: rgba(215, 120, 120, 0.85) 0px 20px 10px -15px;
 }
@@ -128,4 +137,86 @@ a {
   text-align: center;
   font-size: 13px;
   color: rgb(170, 170, 170);
+}
+
+.annulla-button {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  background: linear-gradient(
+    45deg,
+    rgb(169, 169, 169) 0%,
+    rgb(211, 211, 211) 100%
+  );
+  color: white;
+  padding-block: 15px;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: rgba(215, 120, 120, 0.85) 0px 20px 10px -15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* CHECKBOX */
+.check {
+  cursor: pointer;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, 0, 0);
+}
+
+.check:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(34, 50, 84, 0.03);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.check svg {
+  position: relative;
+  z-index: 1;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #c8ccd4;
+  stroke-width: 1.5;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+}
+
+.check svg path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+
+.check svg polyline {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 66;
+}
+
+.check:hover svg {
+  stroke: #bd1e1d;
+}
+
+#cbx:checked + .check svg {
+  stroke: #bd1e1d;
+}
+
+#cbx:checked + .check svg path {
+  stroke-dashoffset: 60;
+  transition: all 0.3s linear;
+}
+
+#cbx:checked + .check svg polyline {
+  stroke-dashoffset: 42;
+  transition: all 0.2s linear;
+  transition-delay: 0.15s;
 }
