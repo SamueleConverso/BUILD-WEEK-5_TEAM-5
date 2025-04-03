@@ -9,9 +9,6 @@ import { postRicovero } from "../redux/actions/ricovero.js";
 const RicoveroForm = () => {
   const [inCorso, setInCorso] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  const [selectedAnimaleOption, setSelectedAnimaleOption] = useState("");
-  const [selectedAnimaleSmarritoOption, setSelectedAnimaleSmarritoOption] =
-    useState("");
   const [descrizione, setDescrizione] = useState("");
   const [dataInizioRicovero, setDataInizioRicovero] = useState("");
   const [dataFineRicovero, setDataFineRicovero] = useState("");
@@ -133,10 +130,8 @@ const RicoveroForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={selectedAnimaleSmarritoOption}
-                onChange={(e) =>
-                  setSelectedAnimaleSmarritoOption(e.target.value)
-                }
+                value={animaleSmarritoId}
+                onChange={(e) => setAnimaleSmarritoId(e.target.value)}
               >
                 <option className=" text-center" value="">
                   -- Scegli l'animale --
@@ -157,8 +152,8 @@ const RicoveroForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
-                value={selectedAnimaleOption}
-                onChange={(e) => setSelectedAnimaleOption(e.target.value)}
+                value={animaleId}
+                onChange={(e) => setAnimaleId(e.target.value)}
               >
                 <option className=" text-center" value="">
                   -- Scegli l'animale --
