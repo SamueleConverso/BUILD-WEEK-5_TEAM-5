@@ -3,21 +3,50 @@ import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimali } from "../redux/actions/animale.js";
+import { getAnimaliSmarriti } from "../redux/actions/animaleSmarrito.js";
+import { postRicovero } from "../redux/actions/ricovero.js";
 
 const RicoveroForm = () => {
   const [inCorso, setInCorso] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedAnimaleOption, setSelectedAnimaleOption] = useState("");
-  //const [selectedAnimaleSmarritoOption, setSelectedAnimaleSmarritoOption] =
-  useState("");
+  const [selectedAnimaleSmarritoOption, setSelectedAnimaleSmarritoOption] =
+    useState("");
+  const [descrizione, setDescrizione] = useState("");
+  const [dataInizioRicovero, setDataInizioRicovero] = useState("");
+  const [dataFineRicovero, setDataFineRicovero] = useState("");
+  const [animaleId, setAnimaleId] = useState(null);
+  const [animaleSmarritoId, setAnimaleSmarritoId] = useState(null);
 
   const dispatch = useDispatch();
 
   const animali = useSelector((state) => state.animale.animali);
+  const animaliSmarriti = useSelector(
+    (state) => state.animaliSmarriti.animaliSmarriti
+  );
 
   useEffect(() => {
     dispatch(getAnimali());
+    dispatch(getAnimaliSmarriti());
   }, []);
+
+  const handleSubmit = () => {
+    dispatch(
+      postRicovero(
+        descrizione,
+        dataFineRicovero,
+        dataFineRicovero,
+        animaleId,
+        animaleSmarritoId
+      )
+    );
+
+    setDescrizione("");
+    setDataFineRicovero("");
+    setDataInizioRicovero("");
+    setAnimaleId("");
+    setAnimaleSmarritoId("");
+  };
 
   return (
     <div className="container-fluid d-flex justify-content-center my-3">
@@ -28,15 +57,15 @@ const RicoveroForm = () => {
           className="formLogin"
           onSubmit={(e) => {
             e.preventDefault();
-            //   handleSubmit();
+            handleSubmit();
           }}
         >
           <Form.Control
             className="inputLogin"
             placeholder="Descrizione"
             type="text"
-            //   value={nome}
-            //   onChange={(e) => setNome(e.target.value)}
+            value={descrizione}
+            onChange={(e) => setDescrizione(e.target.value)}
           ></Form.Control>
 
           <Form.Label className="mt-2 mb-0 ps-2" id="microchip">
@@ -45,8 +74,8 @@ const RicoveroForm = () => {
           <Form.Control
             className="inputLogin mt-0"
             type="date"
-            //   value={dataRegistrazione}
-            //   onChange={(e) => setDataRegistrazione(e.target.value)}
+            value={dataInizioRicovero}
+            onChange={(e) => setDataInizioRicovero(e.target.value)}
           ></Form.Control>
 
           <div className="ps-3 d-flex align-items-center inputLogin">
@@ -76,8 +105,8 @@ const RicoveroForm = () => {
               <Form.Control
                 className="inputLogin mt-0"
                 type="date"
-                //   value={numeroMicrochip}
-                //   onChange={(e) => setNumeroMicrochip(e.target.value)
+                value={dataFineRicovero}
+                onChange={(e) => setDataFineRicovero(e.target.value)}
               ></Form.Control>
             </>
           )}
@@ -104,6 +133,30 @@ const RicoveroForm = () => {
               <select
                 id="tipoAnimale"
                 className="inputLogin"
+                value={selectedAnimaleSmarritoOption}
+                onChange={(e) =>
+                  setSelectedAnimaleSmarritoOption(e.target.value)
+                }
+              >
+                <option className=" text-center" value="">
+                  -- Scegli l'animale --
+                </option>
+                {animaliSmarriti.map((animale) => {
+                  return (
+                    <option
+                      className=" text-center"
+                      key={animale.animaleSmarritoId}
+                      value={animale.animaleSmarritoId}
+                    >
+                      {animale.nome}
+                    </option>
+                  );
+                })}
+              </select>
+            ) : (
+              <select
+                id="tipoAnimale"
+                className="inputLogin"
                 value={selectedAnimaleOption}
                 onChange={(e) => setSelectedAnimaleOption(e.target.value)}
               >
@@ -122,12 +175,6 @@ const RicoveroForm = () => {
                   );
                 })}
               </select>
-            ) : (
-              <Form.Control
-                className="inputLogin"
-                placeholder="Id animale smarrito"
-                type="text"
-              />
             ))}
           <Button className="login-button" type="submit">
             Aggiungi ricovero

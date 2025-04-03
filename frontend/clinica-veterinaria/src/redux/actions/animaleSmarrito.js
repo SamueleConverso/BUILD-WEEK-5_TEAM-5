@@ -45,7 +45,7 @@ export const createAnimaleSmarritoAPI = (
 export const getAnimaliSmarriti = () => {
   return async (dispatch) => {
     dispatch({ type: "GET_ANIMALI_SMARRITI_REQUEST" });
-    
+
     try {
       const response = await fetch(API_URL, {
         headers: {
@@ -53,16 +53,16 @@ export const getAnimaliSmarriti = () => {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
         }
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         console.log("Dati ricevuti:", data);
-        
+
         dispatch({
           type: "GET_ANIMALI_SMARRITI_SUCCESS",
           payload: data.animaliSmarriti || []
         });
-        
+
         return data;
       } else {
         throw new Error(`Errore ${response.status}: ${response.statusText}`);
@@ -77,7 +77,7 @@ export const getAnimaliSmarriti = () => {
 export const getAnimaleSmarritoById = (id) => {
   return async (dispatch) => {
     dispatch({ type: "GET_ANIMALE_SMARRITO_BY_ID_REQUEST" });
-    
+
     try {
       const response = await fetch(`https://localhost:7138/animaleSmarrito?id=${id}`, {
         headers: {
@@ -85,16 +85,16 @@ export const getAnimaleSmarritoById = (id) => {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
         }
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         console.log("Dettaglio animale ricevuto:", data);
-        
+
         dispatch({
           type: "GET_ANIMALE_SMARRITO_BY_ID_SUCCESS",
           payload: data.animaleSmarrito
         });
-        
+
         return data;
       } else {
         throw new Error(`Errore ${response.status}: ${response.statusText}`);
