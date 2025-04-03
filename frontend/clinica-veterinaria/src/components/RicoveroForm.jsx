@@ -71,8 +71,8 @@ const RicoveroForm = () => {
     setDescrizione("");
     setDataFineRicovero("");
     setDataInizioRicovero("");
-    setAnimaleId("");
-    setAnimaleSmarritoId("");
+    setAnimaleId(0);
+    setAnimaleSmarritoId(0);
   };
 
   return (
