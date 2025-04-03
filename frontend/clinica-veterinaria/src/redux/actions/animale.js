@@ -8,7 +8,7 @@ export const postAnimale = (
   numeroMicrochip,
   nominativoProprietario
 ) => {
-  return async () => {
+  return async (dispatch) => {
     try {
       const response = await fetch("https://localhost:7138/api/Animale", {
         headers: {
@@ -30,6 +30,7 @@ export const postAnimale = (
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        dispatch(getAnimali());
         alert("Animale aggiunto con successo!");
       } else {
         alert("Errore! Forse non hai inserito tutti i campi richiesti.");
@@ -90,6 +91,70 @@ export const getAnimaleById = (animaleId) => {
       }
     } catch (error) {
       console.error("ERRORE FETCH:" + error);
+    }
+  };
+};
+
+export const putAnimale = (
+  animaleId,
+  dataRegistrazione,
+  nome,
+  specie,
+  colore,
+  dataNascita,
+  microchip,
+  numeroMicrochip,
+  nominativoProprietario
+) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://localhost:7138/api/Animale/" + animaleId,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            dataRegistrazione: dataRegistrazione,
+            nome: nome,
+            specie: specie,
+            colore: colore,
+            dataNascita: dataNascita,
+            microchip: microchip,
+            numeroMicrochip: numeroMicrochip,
+            nominativoProprietario: nominativoProprietario,
+          }),
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+      if (response.ok) {
+        alert("Animale modificato con successo!");
+        dispatch(getAnimali());
+      } else {
+        alert("Errore! Forse non hai inserito tutti i campi richiesti.");
+        throw new Error("errore nella putAnimale");
+      }
+    } catch (error) {
+      console.error("ERRORE:", error);
+    }
+  };
+};
+
+export const deleteAnimale = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("https://localhost:7138/api/Animale/" + id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+        },
+      });
+      if (response.ok) {
+        dispatch(getAnimali());
+      } else throw new Error("errore nella deleteAnimale");
+    } catch (error) {
+      console.error("ERRORE:", error);
     }
   };
 };

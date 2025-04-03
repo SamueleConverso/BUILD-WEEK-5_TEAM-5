@@ -157,7 +157,7 @@ namespace BuildWeek5_Team5.Controllers {
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAnimale(int id, [FromBody] UpdateAnimaleRequestDto updateAnimaleRequestDto) {
             var vecchioAnimale = await _animaleService.GetAnimaleByIdAsync(id);
 
