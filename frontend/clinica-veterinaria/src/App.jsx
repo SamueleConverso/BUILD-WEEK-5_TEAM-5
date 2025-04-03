@@ -18,7 +18,8 @@ import RicoveroForm from "./components/RicoveroForm";
 import VisiteList from "./components/VisiteList";
 import VisitaForm from "./components/VisitaForm";
 import EditAnimale from "./components/EditAnimale";
-
+import AnimaleSmarritoList from './components/AnimaleSmarritoList';
+import AnimaleSmarritoDetails from './components/AnimaleSmarritoDetails';
 
 function App() {
   return (
@@ -27,8 +28,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          //path="/clinica"
-          path="/animali"
+          path="/clinica"
+          //path="/animali"
           element={<ClinicaGenerale />}
         />
         <Route path="/clinica/formAnimali" element={<AddAnimaleForm />} />
@@ -37,14 +38,16 @@ function App() {
           path="/clinica/formAnimaliSmarriti"
           element={<CreaAnimaleSmarrito />}
         />
+        <Route path='/clinica/animaliSmarriti' element={<AnimaleSmarritoList />} />
+        <Route path="/clinica/animaliSmarriti/:id" element={<AnimaleSmarritoDetails />} />
         <Route
-          path="/animale-details/:animaleId"
+          path='/animale-details/:animaleId'
           element={<AnimaleDetails />}
         />
         <Route path="/clinica/formRicovero" element={<RicoveroForm />} />
-        <Route path="clinica/listaRicoveri" element={<RicoveriList />} />
+        <Route path="/clinica/listaRicoveri" element={<RicoveriList />} />
         <Route path="/clinica/formVisita" element={<VisitaForm />} />
-        <Route path="clinica/listaVisite" element={<VisiteList />} />
+        <Route path="/clinica/listaVisite" element={<VisiteList />} />
         <Route path="/animale-edit/:animaleId" element={<EditAnimale />} />
         <Route path="/login" element={<LoginClinica />} />
         <Route path="/register" element={<RegisterClinica />} />
