@@ -47,7 +47,7 @@ const RegisterClinica = () => {
 
   return (
     <div
-      className="container-fluid d-flex justify-content-center align-items-center"
+      className="container-fluid d-flex justify-content-center align-items-center my-3"
       style={{ height: "69.5dvh" }}
     >
       {errorMessages.generic && (
