@@ -1,15 +1,24 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimali } from "../redux/actions/animale.js";
 import { getAnimaliSmarriti } from "../redux/actions/animaleSmarrito.js";
+import { postVisita } from "../redux/actions/visita.js";
+import { data } from "react-router-dom";
 
 const VisitaForm = () => {
   const [inCorso, setInCorso] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedAnimaleOption, setSelectedAnimaleOption] = useState("");
   //const [selectedAnimaleSmarritoOption, setSelectedAnimaleSmarritoOption] = useState("");
+
+  const [dataVisita, setDataVisita] = useState("");
+  const [esame, setEsame] = useState("");
+  const [descrizioneCura, setDescrizioneCura] = useState("");
+  const [animaleId, setAnimaleId] = useState(0);
+  const [animaleSmarritoId, setAnimaleSmarritoId] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -32,6 +41,10 @@ const VisitaForm = () => {
     }
   }, [animali]);
 
+  const handleSubmit = () => {
+    dispatch(postVisita());
+  };
+
   return (
     <div className="container-fluid d-flex justify-content-center my-3">
       <div className="containerLogin containerAnimali">
@@ -41,15 +54,15 @@ const VisitaForm = () => {
           className="formLogin"
           onSubmit={(e) => {
             e.preventDefault();
-            //   handleSubmit();
+            handleSubmit();
           }}
         >
           <Form.Control
             className="inputLogin"
             placeholder="Descrizione"
-            type="text"
-            //   value={nome}
-            //   onChange={(e) => setNome(e.target.value)}
+            type="date"
+            value={dataVisita}
+            onChange={(e) => setDataVisita(e.target.value)}
           ></Form.Control>
 
           <Form.Label className="mt-2 mb-0 ps-2" id="microchip">

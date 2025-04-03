@@ -16,17 +16,13 @@ function AnimaleSmarritoList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await dispatch(getAnimaliSmarriti());
-      } catch (err) {
-        console.error("Errore recupero animali:", err);
-        setError("Impossibile caricare la lista degli animali smarriti");
-      }
-    };
-
-    fetchData();
-  }, [dispatch]);
+    try {
+      dispatch(getAnimaliSmarriti());
+    } catch (err) {
+      console.error("Errore recupero animali:", err);
+      setError("Impossibile caricare la lista degli animali smarriti");
+    }
+  }, []);
 
   useEffect(() => {
     if (animaliSmarriti) {
