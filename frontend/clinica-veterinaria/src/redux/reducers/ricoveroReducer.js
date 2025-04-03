@@ -1,5 +1,6 @@
 const initialState = {
     ricoveri: [],
+    ricovero: null,
 };
 
 const ricoveroReducer = (state = initialState, action) => {
@@ -9,6 +10,13 @@ const ricoveroReducer = (state = initialState, action) => {
                 ...state,
                 ricoveri: action.payload,
             };
+
+        case "GET_RICOVERO_BY_ID":
+            return {
+                ...state,
+                ricovero: action.payload,
+            };
+
         default:
             return state;
     }

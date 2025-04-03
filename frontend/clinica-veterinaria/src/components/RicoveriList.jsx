@@ -1,16 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { getRicoveri } from "../redux/actions/ricovero";
+import { deleteRicovero, getRicoveri } from "../redux/actions/ricovero";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RicoveriList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const ricoveri = useSelector((state) => state.ricoveri.ricoveri);
 
   useEffect(() => {
     dispatch(getRicoveri());
   }, []);
+
+  const handleDelete = (id) => {
+    dispatch(deleteRicovero(id));
+  };
 
   return (
     <div className="container my-4">
@@ -33,6 +39,7 @@ const RicoveriList = () => {
             <th>Data di nascita</th>
             <th>Nominativo proprietario</th>
             <th>Numero microchip</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -43,13 +50,45 @@ const RicoveriList = () => {
                   <td>{ricovero.ricoveroId}</td>
                   <td>{ricovero.descrizione}</td>
                   <td>{ricovero.dataInizioRicovero}</td>
-                  <td>{ricovero.dataFineRicovero}</td>
+                  {ricovero.dataFineRicovero != null ? (
+                    <td>{ricovero.dataFineRicovero}</td>
+                  ) : (
+                    <td>in corso</td>
+                  )}
                   <td>{ricovero.animale.nome}</td>
                   <td>{ricovero.animale.specie}</td>
                   <td>{ricovero.animale.colore}</td>
                   <td>{ricovero.animale.dataNascita}</td>
                   <td>{ricovero.animale.nominativoProprietario}</td>
-                  <td>{ricovero.animale.numeroMicrochip}</td>
+                  {ricovero.animale.numeroMicrochip != null ? (
+                    <td>{ricovero.animale.numeroMicrochip}</td>
+                  ) : (
+                    <td>microchip non presente</td>
+                  )}
+                  <td>
+                    {" "}
+                    <button
+                      className="btn btn-danger"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(ricovero.animale.animaleId);
+                      }}
+                    >
+                      {" "}
+                      <i class="bi bi-trash3"></i>{" "}
+                    </button>{" "}
+                    <button
+                      className="btn btn-warning"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate(
+                          `/clinica/formRicovero/${ricovero.ricoveroId}`
+                        );
+                      }}
+                    >
+                      <i class="bi bi-pencil-square"></i>
+                    </button>{" "}
+                  </td>
                 </tr>
               )
             );
@@ -74,6 +113,7 @@ const RicoveriList = () => {
             <th>Specie</th>
             <th>Colore</th>
             <th>Numero microchip</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -84,11 +124,45 @@ const RicoveriList = () => {
                   <td>{ricovero.ricoveroId}</td>
                   <td>{ricovero.descrizione}</td>
                   <td>{ricovero.dataInizioRicovero}</td>
-                  <td>{ricovero.dataFineRicovero}</td>
+                  {ricovero.dataFineRicovero != null ? (
+                    <td>{ricovero.dataFineRicovero}</td>
+                  ) : (
+                    <td>in corso</td>
+                  )}
                   <td>{ricovero.animaleSmarrito.nome}</td>
                   <td>{ricovero.animaleSmarrito.specie}</td>
                   <td>{ricovero.animaleSmarrito.colore}</td>
-                  <td>{ricovero.animaleSmarrito.numeroMicrochip}</td>
+                  {ricovero.animaleSmarrito.numeroMicrochip != null ? (
+                    <td>{ricovero.animaleSmarrito.numeroMicrochip}</td>
+                  ) : (
+                    <td>microchip non presente</td>
+                  )}
+                  <td>
+                    {" "}
+                    <button
+                      className="btn btn-danger"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(
+                          ricovero.animaleSmarrito.animaleSmarritoId
+                        );
+                      }}
+                    >
+                      {" "}
+                      <i class="bi bi-trash3"></i>{" "}
+                    </button>{" "}
+                    <button
+                      className="btn btn-warning"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate(
+                          `/clinica/formRicovero/${ricovero.ricoveroId}`
+                        );
+                      }}
+                    >
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </td>
                 </tr>
               )
             );
