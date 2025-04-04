@@ -53,7 +53,6 @@ function App() {
               path="/clinica/modificaAnimaliSmarriti/:id"
               element={<FormAnimaleSmarrito isEdit={true} />}
             />
-            {/* <Route path='/clinica/modificaAnimaliSmarriti/:id' element={<EditAnimaleSmarrito />} /> */}
             <Route
               path="/animale-details/:animaleId"
               element={<AnimaleDetails />}
