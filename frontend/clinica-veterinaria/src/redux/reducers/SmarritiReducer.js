@@ -6,16 +6,16 @@ const initialState = {
   success: false,
 };
 
-const animaleSmarritoReducer = (state = initialState, action) => {
+const smarritoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_ANIMALI_SMARRITI_REQUEST':
+    case "GET_ANIMALI_SMARRITI_REQUEST":
       return {
         ...state,
         loading: true,
         error: null,
       };
 
-    case 'GET_ANIMALI_SMARRITI_SUCCESS':
+    case "GET_ANIMALI_SMARRITI_SUCCESS":
       return {
         ...state,
         loading: false,
@@ -23,14 +23,14 @@ const animaleSmarritoReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case 'GET_ANIMALE_SMARRITO_BY_ID_REQUEST':
+    case "GET_ANIMALE_SMARRITO_BY_ID_REQUEST":
       return {
         ...state,
         loading: true,
         error: null,
       };
 
-    case 'GET_ANIMALE_SMARRITO_BY_ID_SUCCESS':
+    case "GET_ANIMALE_SMARRITO_BY_ID_SUCCESS":
       return {
         ...state,
         loading: false,
@@ -38,7 +38,7 @@ const animaleSmarritoReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case 'UPDATE_ANIMALE_SMARRITO_REQUEST':
+    case "UPDATE_ANIMALE_SMARRITO_REQUEST":
       return {
         ...state,
         loading: true,
@@ -46,7 +46,7 @@ const animaleSmarritoReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case 'UPDATE_ANIMALE_SMARRITO_SUCCESS':
+    case "UPDATE_ANIMALE_SMARRITO_SUCCESS":
       return {
         ...state,
         loading: false,
@@ -54,7 +54,7 @@ const animaleSmarritoReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case 'DELETE_ANIMALE_SMARRITO_SUCCESS':
+    case "DELETE_ANIMALE_SMARRITO_SUCCESS":
       return {
         ...state,
         loading: false,
@@ -68,4 +68,4 @@ const animaleSmarritoReducer = (state = initialState, action) => {
   }
 };
 
-export default animaleSmarritoReducer;
+export default smarritoReducer;
