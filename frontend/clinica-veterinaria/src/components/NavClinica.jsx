@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Dropdown } from "react-bootstrap";
 
 const NavClinica = () => {
   const location = useLocation();
@@ -40,6 +41,10 @@ const NavClinica = () => {
       setIsAuthorized(false);
     }
   }, [loginSuccess]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+  };
 
   return (
     <>
@@ -113,7 +118,28 @@ const NavClinica = () => {
             </Nav>
             <Nav>
               {isAuthorized ? (
-                <p className="text-white">{role}</p>
+                <Dropdown>
+                  <Dropdown.Toggle
+                    className="bg-transparent border-0"
+                    id="dropdown-basic"
+                  >
+                    {role}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">
+                      <button
+                        className="btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleLogout();
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               ) : (
                 <Nav.Link
                   href="/login"
