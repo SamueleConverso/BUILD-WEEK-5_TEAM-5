@@ -17,6 +17,7 @@ const VisiteList = () => {
   const handleDelete = (visitaId) => {
     dispatch(deleteVisita(visitaId));
   };
+
   return (
     <div className="container d-flex justify-content-center table-responsive">
       <table className="table table-bordered table-hover">
@@ -72,15 +73,6 @@ const VisiteList = () => {
                         }}
                       >
                         <i className="bi bi-trash3"></i>
-                      </Button>
-                      <Button
-                        className="btn btn-warning"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          //handlePut(visita.visitaId);
-                        }}
-                      >
-                        <i className="bi bi-pencil-square" />
                       </Button>
                     </div>
                   </td>
