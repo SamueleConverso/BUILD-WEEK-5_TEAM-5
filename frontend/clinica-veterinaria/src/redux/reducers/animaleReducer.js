@@ -1,4 +1,5 @@
 const initialState = {
+  logout: false,
   isLoginError: "",
   isRegisterError: "",
   animali: [],
@@ -17,6 +18,12 @@ const animaleReducer = (state = initialState, action) => {
       return {
         ...state,
         loginSuccess: action.payload,
+        logout: false,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        logout: action.payload,
       };
     case "REGISTER_ERROR":
       return {

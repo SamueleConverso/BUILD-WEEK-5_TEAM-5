@@ -6,12 +6,15 @@ import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Dropdown } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
 const NavClinica = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const [role, setRole] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const loginSuccess = useSelector((state) => state.animale.loginSuccess);
+  const logout = useSelector((state) => state.animale.logout);
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
     if (token) {
@@ -44,7 +47,15 @@ const NavClinica = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
+    dispatch({ type: "LOGOUT", payload: true });
   };
+
+  useEffect(() => {
+    if (logout) {
+      setIsAuthorized(false);
+      setRole(null);
+    }
+  }, [logout]);
 
   return (
     <>
