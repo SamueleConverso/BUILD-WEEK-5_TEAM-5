@@ -1,0 +1,71 @@
+const initialState = {
+  animaliSmarriti: [],
+  animaleSelezionato: null,
+  loading: false,
+  error: null,
+  success: false,
+};
+
+const animaleSmarritoReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'GET_ANIMALI_SMARRITI_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case 'GET_ANIMALI_SMARRITI_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        animaliSmarriti: action.payload,
+        error: null,
+      };
+
+    case 'GET_ANIMALE_SMARRITO_BY_ID_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case 'GET_ANIMALE_SMARRITO_BY_ID_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        animaleSelezionato: action.payload,
+        error: null,
+      };
+
+    case 'UPDATE_ANIMALE_SMARRITO_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        success: false,
+        error: null,
+      };
+
+    case 'UPDATE_ANIMALE_SMARRITO_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: null,
+      };
+
+    case 'DELETE_ANIMALE_SMARRITO_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        animaliSmarriti: state.animaliSmarriti.filter(
+          (animale) => animale.animaleSmarritoId !== action.payload
+        ),
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default animaleSmarritoReducer;
