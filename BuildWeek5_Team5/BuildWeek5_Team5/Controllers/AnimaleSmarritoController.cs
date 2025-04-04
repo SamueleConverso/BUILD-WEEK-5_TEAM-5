@@ -77,8 +77,8 @@ namespace BuildWeek5_Team5.Controllers
             }
         }
 
-        [HttpPut("/animaleSmarrito")]
-        public async Task<IActionResult> Update([FromQuery] int id, [FromBody] CreateAnimaleSmarritoDto createAnimaleSmarritoDto)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] CreateAnimaleSmarritoDto createAnimaleSmarritoDto)
         {
             try
             {
@@ -99,8 +99,8 @@ namespace BuildWeek5_Team5.Controllers
             }
         }
 
-        [HttpDelete("/animaleSmarrito")]
-        public async Task<IActionResult> Delete([FromQuery] int id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -113,9 +113,9 @@ namespace BuildWeek5_Team5.Controllers
             }
         }
 
-        [HttpGet("/animaleSmarrito")]
+        [HttpGet("{id:int}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAnimaleSmarritoById([FromQuery] int id)
+        public async Task<IActionResult> GetAnimaleSmarritoById(int id)
         {
             try
             {

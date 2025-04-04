@@ -54,9 +54,9 @@ namespace BuildWeek5_Team5.Controllers {
                 });
             }
 
-            if (!ricoveriList.Any()) {
-                return NoContent();
-            }
+            //if (!ricoveriList.Any()) {
+            //    return NoContent();
+            //}
 
             var ricoveriResponse = ricoveriList.Select(r => new RicoveroDto() {
                 RicoveroId = r.RicoveroId,

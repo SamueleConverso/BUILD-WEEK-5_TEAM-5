@@ -51,8 +51,18 @@ const RicoveroForm = () => {
         setInCorso(true);
         setDataFineRicovero("");
       }
-      setAnimaleId(ricovero.animale.animaleId || 0);
-      setAnimaleSmarritoId(ricovero.animale.animaleSmarritoId || 0);
+      if (ricovero.animale === null) {
+        setAnimaleId(0);
+      } else {
+        setAnimaleId(ricovero.animale.animaleId);
+      }
+
+      if (ricovero.animaleSmarrito === null) {
+        setAnimaleSmarritoId(0);
+      } else {
+        setAnimaleSmarritoId(ricovero.animaleSmarrito.animaleSmarritoId);
+      }
+
       if (ricovero.animale) {
         setSelectedOption("animale");
       } else if (ricovero.animaleSmarrito) {

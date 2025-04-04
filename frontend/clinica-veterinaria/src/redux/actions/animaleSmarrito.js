@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.1.65:5284/api/AnimaleSmarrito";
+const API_URL = "https://localhost:7138/api/AnimaleSmarrito";
 
 export const createAnimaleSmarritoAPI = (
   nome,
@@ -82,7 +82,7 @@ export const getAnimaleSmarritoById = (id) => {
 
     try {
       const response = await fetch(
-        `http://192.168.1.65:5284/animaleSmarrito?id=${id}`,
+        "https://localhost:7138/api/AnimaleSmarrito/" + id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -125,7 +125,7 @@ export const updateAnimaleSmarritoAPI = (
 
     try {
       const response = await fetch(
-        `http://192.168.1.65:5284/animaleSmarrito?id=${id}`,
+        "https://localhost:7138/api/AnimaleSmarrito/" + id,
         {
           method: "PUT",
           headers: {
@@ -169,7 +169,7 @@ export const deleteAnimaleSmarrito = (id) => {
 
     try {
       const response = await fetch(
-        `http://192.168.1.65:5284/animaleSmarrito?id=${id}`,
+        "https://localhost:7138/api/AnimaleSmarrito/" + id,
         {
           method: "DELETE",
           headers: {
