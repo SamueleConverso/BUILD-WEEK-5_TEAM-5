@@ -96,8 +96,8 @@ namespace BuildWeek5_Team5.Controllers
             }
         }
 
-        [HttpPut("visita")]
-        public async Task<IActionResult> Update([FromQuery] int id, [FromBody] CreateVisitaRequestDto createVisitaRequestDto)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] CreateVisitaRequestDto createVisitaRequestDto)
         {
             try
             {
@@ -116,8 +116,8 @@ namespace BuildWeek5_Team5.Controllers
             }
         }
 
-        [HttpDelete("visita")]
-        public async Task<IActionResult> Delete([FromQuery] int id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

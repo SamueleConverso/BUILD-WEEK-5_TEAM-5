@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVisite } from "../redux/actions/visita.js";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { deleteVisita } from "../redux/actions/visita.js";
 
 const VisiteList = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,10 @@ const VisiteList = () => {
   useEffect(() => {
     dispatch(getVisite());
   }, []);
+
+  const handleDelete = (visitaId) => {
+    dispatch(deleteVisita(visitaId));
+  };
   return (
     <div className="container d-flex justify-content-center table-responsive">
       <table className="table table-bordered table-hover">
@@ -21,6 +27,7 @@ const VisiteList = () => {
             <th>Descrizione cura</th>
             <th>Animale</th>
             <th>Animale smarrito</th>
+            <th>Azioni</th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +40,10 @@ const VisiteList = () => {
                   <td>{visita.descrizioneCura}</td>
                   <td>
                     {visita.animale ? (
-                      <Link to={`/animale-details/${visita.animale.animaleId}`}>
+                      <Link
+                        className="text-decoration-underline"
+                        to={`/animale-details/${visita.animale.animaleId}`}
+                      >
                         {visita.animale.nome}
                       </Link>
                     ) : (
@@ -43,6 +53,7 @@ const VisiteList = () => {
                   <td>
                     {visita.animaleSmarrito ? (
                       <Link
+                        className="text-decoration-underline"
                         to={`/clinica/animaliSmarriti/${visita.animaleSmarrito.animaleSmarritoId}`}
                       >
                         {visita.animaleSmarrito.nome}
@@ -50,6 +61,28 @@ const VisiteList = () => {
                     ) : (
                       "-"
                     )}
+                  </td>
+                  <td>
+                    <div className="d-flex justify-content-center gap-3">
+                      <Button
+                        className="btn btn-danger"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDelete(visita.visitaId);
+                        }}
+                      >
+                        <i className="bi bi-trash3"></i>
+                      </Button>
+                      <Button
+                        className="btn btn-warning"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          //handlePut(visita.visitaId);
+                        }}
+                      >
+                        <i className="bi bi-pencil-square" />
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               );

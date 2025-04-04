@@ -64,3 +64,24 @@ export const getVisite = () => {
     }
   };
 };
+
+export const deleteVisita = (visitaId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://localhost:7138/api/Visita/" + visitaId,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+          },
+        }
+      );
+      if (response.ok) {
+        dispatch(getVisite());
+      } else throw new Error("errore nella deleteVisita");
+    } catch (error) {
+      console.error("ERRORE:", error);
+    }
+  };
+};
