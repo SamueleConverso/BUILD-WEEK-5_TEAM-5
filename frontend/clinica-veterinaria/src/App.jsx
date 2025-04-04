@@ -30,6 +30,8 @@ function App() {
         <main className="flex-grow-1 d-flex flex-column justify-content-center">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/animali" element={<AnimaliList />} />
+            <Route path="/animaliSmarriti" element={<AnimaleSmarritoList />} />
             <Route
               path="/clinica"
               //path="/animali"

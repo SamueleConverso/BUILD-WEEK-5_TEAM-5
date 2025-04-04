@@ -1,10 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { deleteAnimaleSmarrito } from '../redux/actions/animaleSmarrito';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteAnimaleSmarrito } from "../redux/actions/animaleSmarrito";
+import { useLocation } from "react-router-dom";
 
 function AnimaleSmarritoCard({ animale }) {
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   if (!animale) {
     return null;
@@ -25,39 +28,41 @@ function AnimaleSmarritoCard({ animale }) {
   };
 
   return (
-    <div className='card' style={{ width: '100%' }}>
+    <div className="card" style={{ width: "100%" }}>
       <img
-        src='https://placedog.net/300/300'
-        className='card-img-top'
+        src="https://placedog.net/300/300"
+        className="card-img-top"
         alt={animale.nome}
       />
-      <div className='card-body'>
-        <h5 className='card-title'>{animale.nome}</h5>
-        <p className='card-text'>
+      <div className="card-body">
+        <h5 className="card-title">{animale.nome}</h5>
+        <p className="card-text">
           {animale.specie} - {animale.colore}
         </p>
-        <p className='card-text'>
+        <p className="card-text">
           {animale.microchip
-            ? `Microchip: ${animale.numeroMicrochip || 'N/A'}`
-            : 'Senza microchip'}
+            ? `Microchip: ${animale.numeroMicrochip || "N/A"}`
+            : "Senza microchip"}
         </p>
-        <div className='d-flex justify-content-between'>
-          <Link
-            to={`/clinica/animaliSmarriti/${animale.animaleSmarritoId}`}
-            className='btn btn-primary btn-sm'
-          >
-            Dettagli
-          </Link>
-          <Link
-            to={`/clinica/modificaAnimaliSmarriti/${animale.animaleSmarritoId}`}
-            className='btn btn-warning btn-sm'
-          >
-            Modifica
-          </Link>
-          <button className='btn btn-danger btn-sm' onClick={handleDelete}>
-            Elimina
-          </button>
-        </div>
+        {location.pathname === "/clinica/animaliSmarriti" && (
+          <div className="d-flex justify-content-between mt-2">
+            <Link
+              to={`/clinica/animaliSmarriti/${animale.animaleSmarritoId}`}
+              className="btn btn-primary"
+            >
+              Dettagli
+            </Link>
+            <Link
+              to={`/clinica/modificaAnimaliSmarriti/${animale.animaleSmarritoId}`}
+              className="btn btn-warning"
+            >
+              Modifica
+            </Link>
+            <button className="btn btn-danger" onClick={handleDelete}>
+              Elimina
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
