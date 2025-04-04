@@ -96,7 +96,7 @@ export const putRicovero = (
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Ricovero/" + ricoveroId,
+        "http://192.168.1.65:5284/api/Ricovero/" + ricoveroId,
         {
           method: "PUT",
           body: JSON.stringify({
@@ -130,7 +130,7 @@ export const getRicoveroById = (ricoveroId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Ricovero/" + ricoveroId,
+        "http://192.168.1.65:5284/api/Ricovero/" + ricoveroId,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwtToken"),

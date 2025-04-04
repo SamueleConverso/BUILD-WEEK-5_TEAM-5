@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Dropdown } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 const NavClinica = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [role, setRole] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const loginSuccess = useSelector((state) => state.animale.loginSuccess);
@@ -31,6 +32,7 @@ const NavClinica = () => {
         if (decodedToken.exp < currentTime) {
           setIsAuthorized(false);
           localStorage.removeItem("jwtToken");
+
           return;
         }
 
@@ -48,6 +50,7 @@ const NavClinica = () => {
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
     dispatch({ type: "LOGOUT", payload: true });
+    navigate("/");
   };
 
   useEffect(() => {

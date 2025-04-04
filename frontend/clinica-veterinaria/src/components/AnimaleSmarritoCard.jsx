@@ -28,7 +28,7 @@ function AnimaleSmarritoCard({ animale }) {
   };
 
   return (
-    <div className="card" style={{ width: "100%" }}>
+    <div className="card">
       <img
         src="https://placedog.net/300/300"
         className="card-img-top"

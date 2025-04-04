@@ -6,7 +6,8 @@ export const postAnimale = (
   dataNascita,
   microchip,
   numeroMicrochip,
-  nominativoProprietario
+  nominativoProprietario,
+  navigate
 ) => {
   return async (dispatch) => {
     try {
@@ -31,6 +32,7 @@ export const postAnimale = (
         const data = await response.json();
         console.log(data);
         dispatch(getAnimali());
+        navigate("/clinica/listaAnimali")
         alert("Animale aggiunto con successo!");
       } else {
         alert("Errore! Forse non hai inserito tutti i campi richiesti.");
@@ -104,7 +106,8 @@ export const putAnimale = (
   dataNascita,
   microchip,
   numeroMicrochip,
-  nominativoProprietario
+  nominativoProprietario,
+  navigate
 ) => {
   return async (dispatch) => {
     try {
@@ -131,6 +134,7 @@ export const putAnimale = (
       if (response.ok) {
         alert("Animale modificato con successo!");
         dispatch(getAnimali());
+        navigate("/clinica/listaAnimali")
       } else {
         alert("Errore! Forse non hai inserito tutti i campi richiesti.");
         throw new Error("errore nella putAnimale");

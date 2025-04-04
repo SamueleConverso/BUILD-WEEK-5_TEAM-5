@@ -2,6 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postAnimale } from "../redux/actions/animale.js";
+import { useNavigate } from "react-router-dom";
 
 function AddAnimaleForm() {
   const [dataRegistrazione, setDataRegistrazione] = useState("");
@@ -14,6 +15,7 @@ function AddAnimaleForm() {
   const [nominativoProprietario, setNominativoProprietario] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     let microchipToPass = null;
@@ -41,7 +43,8 @@ function AddAnimaleForm() {
         dataNascita,
         microchipToPass,
         numeroMicrochipToPass,
-        nominativoProprietario
+        nominativoProprietario,
+        navigate
       )
     );
 

@@ -69,7 +69,7 @@ export const getVisitaById = (visitaId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Visita/" + visitaId,
+        "http://192.168.1.65:5284/api/Visita/" + visitaId,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwtToken"),
