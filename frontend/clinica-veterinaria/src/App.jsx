@@ -20,41 +20,59 @@ import VisitaForm from "./components/VisitaForm";
 import EditAnimale from "./components/EditAnimale";
 import AnimaleSmarritoList from "./components/AnimaleSmarritoList";
 import AnimaleSmarritoDetails from "./components/AnimaleSmarritoDetails";
+import FormAnimaleSmarrito from "./components/FormAnimaleSmarrito";
 
 function App() {
   return (
     <Router>
-      <NavClinica />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/clinica"
-          //path="/animali"
-          element={<ClinicaGenerale />}
-        />
-        <Route path="/clinica/formAnimali" element={<AddAnimaleForm />} />
-        <Route path="/clinica/listaAnimali" element={<AnimaliList />} />
-        <Route
-          path="/clinica/formAnimaliSmarriti"
-          element={<CreaAnimaleSmarrito />}
-        />
-        <Route path='/clinica/animaliSmarriti' element={<AnimaleSmarritoList />} />
-        <Route path="/clinica/animaliSmarriti/:id" element={<AnimaleSmarritoDetails />} />
-        <Route path="/clinica/modificaAnimaliSmarriti/:id" element={<FormAnimaleSmarrito isEdit={true} />} />
-        {/* <Route path='/clinica/modificaAnimaliSmarriti/:id' element={<EditAnimaleSmarrito />} /> */}
-        <Route
-          path='/animale-details/:animaleId'
-          element={<AnimaleDetails />}
-        />
-        <Route path="/clinica/formRicovero" element={<RicoveroForm />} />
-        <Route path="/clinica/listaRicoveri" element={<RicoveriList />} />
-        <Route path="/clinica/formVisita" element={<VisitaForm />} />
-        <Route path="/clinica/listaVisite" element={<VisiteList />} />
-        <Route path="/animale-edit/:animaleId" element={<EditAnimale />} />
-        <Route path="/login" element={<LoginClinica />} />
-        <Route path="/register" element={<RegisterClinica />} />
-      </Routes>
-      <FooterClinica />
+      <div className="d-flex flex-column min-vh-100">
+        <NavClinica />
+        <main className="flex-grow-1 d-flex flex-column justify-content-center">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/clinica"
+              //path="/animali"
+              element={<ClinicaGenerale />}
+            />
+            <Route path="/clinica/formAnimali" element={<AddAnimaleForm />} />
+            <Route path="/clinica/listaAnimali" element={<AnimaliList />} />
+            <Route
+              path="/clinica/formAnimaliSmarriti"
+              element={<CreaAnimaleSmarrito />}
+            />
+            <Route
+              path="/clinica/animaliSmarriti"
+              element={<AnimaleSmarritoList />}
+            />
+            <Route
+              path="/clinica/animaliSmarriti/:id"
+              element={<AnimaleSmarritoDetails />}
+            />
+            <Route
+              path="/clinica/modificaAnimaliSmarriti/:id"
+              element={<FormAnimaleSmarrito isEdit={true} />}
+            />
+            {/* <Route path='/clinica/modificaAnimaliSmarriti/:id' element={<EditAnimaleSmarrito />} /> */}
+            <Route
+              path="/animale-details/:animaleId"
+              element={<AnimaleDetails />}
+            />
+            <Route path="/clinica/formRicovero" element={<RicoveroForm />} />
+            <Route
+              path="/clinica/formRicovero/:ricoveroId"
+              element={<RicoveroForm />}
+            />
+            <Route path="/clinica/listaRicoveri" element={<RicoveriList />} />
+            <Route path="/clinica/formVisita" element={<VisitaForm />} />
+            <Route path="/clinica/listaVisite" element={<VisiteList />} />
+            <Route path="/animale-edit/:animaleId" element={<EditAnimale />} />
+            <Route path="/login" element={<LoginClinica />} />
+            <Route path="/register" element={<RegisterClinica />} />
+          </Routes>
+        </main>
+        <FooterClinica />
+      </div>
     </Router>
   );
 }
