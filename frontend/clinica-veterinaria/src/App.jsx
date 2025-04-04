@@ -20,6 +20,8 @@ import VisitaForm from "./components/VisitaForm";
 import EditAnimale from "./components/EditAnimale";
 import AnimaleSmarritoList from './components/AnimaleSmarritoList';
 import AnimaleSmarritoDetails from './components/AnimaleSmarritoDetails';
+import FormAnimaleSmarrito from './components/FormAnimaleSmarrito';
+//import EditAnimaleSmarrito from './components/EditAnimaleSmarrito';
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
         />
         <Route path='/clinica/animaliSmarriti' element={<AnimaleSmarritoList />} />
         <Route path="/clinica/animaliSmarriti/:id" element={<AnimaleSmarritoDetails />} />
+        <Route path="/clinica/modificaAnimaliSmarriti/:id" element={<FormAnimaleSmarrito isEdit={true} />} />
+        {/* <Route path='/clinica/modificaAnimaliSmarriti/:id' element={<EditAnimaleSmarrito />} /> */}
         <Route
           path='/animale-details/:animaleId'
           element={<AnimaleDetails />}
