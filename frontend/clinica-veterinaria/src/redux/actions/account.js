@@ -2,7 +2,7 @@ export const register = (nome, cognome, email, password, navigate) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Account/register",
+        "http://192.168.1.65:5284/api/Account/register",
         {
           headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const register = (nome, cognome, email, password, navigate) => {
 export const login = (email, password, navigate) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Account/login", {
+      const response = await fetch("http://192.168.1.65:5284/api/Account/login", {
         headers: {
           "Content-Type": "application/json",
         },

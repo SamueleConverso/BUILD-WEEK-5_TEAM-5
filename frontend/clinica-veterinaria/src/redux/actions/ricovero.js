@@ -8,7 +8,7 @@ export const postRicovero = (
 ) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Ricovero", {
+      const response = await fetch("http://192.168.1.65:5284/api/Ricovero", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const postRicovero = (
 export const getRicoveri = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Ricovero", {
+      const response = await fetch("http://192.168.1.65:5284/api/Ricovero", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export const deleteRicovero = (id) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Ricovero/" + id,
+        "http://192.168.1.65:5284/api/Ricovero/" + id,
         {
           method: "DELETE",
           headers: {

@@ -10,7 +10,7 @@ export const postAnimale = (
 ) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Animale", {
+      const response = await fetch("http://192.168.1.65:5284/api/Animale", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const postAnimale = (
 export const getAnimali = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Animale", {
+      const response = await fetch("http://192.168.1.65:5284/api/Animale", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const getAnimaleById = (animaleId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Animale/" + animaleId,
+        "http://192.168.1.65:5284/api/Animale/" + animaleId,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwtToken"),
@@ -109,7 +109,7 @@ export const putAnimale = (
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Animale/" + animaleId,
+        "http://192.168.1.65:5284/api/Animale/" + animaleId,
         {
           method: "PUT",
           body: JSON.stringify({
@@ -144,7 +144,7 @@ export const putAnimale = (
 export const deleteAnimale = (id) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Animale/" + id, {
+      const response = await fetch("http://192.168.1.65:5284/api/Animale/" + id, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
