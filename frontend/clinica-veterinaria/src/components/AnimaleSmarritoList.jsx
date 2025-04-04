@@ -56,7 +56,7 @@ function AnimaleSmarritoList() {
 
   return (
     <div className="container my-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-center align-items-center mb-4">
         <h2>Animali Smarriti</h2>
       </div>
 
@@ -65,7 +65,7 @@ function AnimaleSmarritoList() {
           Non ci sono animali smarriti registrati.
         </div>
       ) : (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {animaliSmarriti.map((animale) => (
             <div
               className="col d-flex justify-content-center"

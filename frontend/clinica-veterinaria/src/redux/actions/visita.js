@@ -8,7 +8,7 @@ export const postVisita = (
 ) => {
   return async () => {
     try {
-      const response = await fetch("https://localhost:7138/api/Visita", {
+      const response = await fetch("http://192.168.1.65:5284/api/Visita", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const postVisita = (
 export const getVisite = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://localhost:7138/api/Visita", {
+      const response = await fetch("http://192.168.1.65:5284/api/Visita", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwtToken"),
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export const getVisitaById = (visitaId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Visita/" + visitaId,
+        "http://192.168.1.65:5284/api/Visita/" + visitaId,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwtToken"),
@@ -97,7 +97,7 @@ export const deleteVisita = (visitaId) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://localhost:7138/api/Visita/" + visitaId,
+        "http://192.168.1.65:5284/api/Visita/" + visitaId,
         {
           method: "DELETE",
           headers: {

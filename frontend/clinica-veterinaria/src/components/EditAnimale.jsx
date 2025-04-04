@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimaleById } from "../redux/actions/animale";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { putAnimale } from "../redux/actions/animale.js";
 import { Form, Button } from "react-bootstrap";
 
 function EditAnimale() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { animaleId } = useParams();
   const animale = useSelector((state) => state.animale.animale);
 
@@ -66,7 +67,8 @@ function EditAnimale() {
         dataNascita,
         microchipToPass,
         numeroMicrochipToPass,
-        nominativoProprietario
+        nominativoProprietario,
+        navigate
       )
     );
 

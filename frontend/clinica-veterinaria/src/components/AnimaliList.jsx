@@ -14,22 +14,23 @@ function AnimaliList() {
   }, []);
 
   return (
-    <>
-      <div className="container d-flex justify-content-center mb-5">
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-          {animali.map((animale) => {
-            return (
-              <div
-                className="col d-flex justify-content-center"
-                key={animale.animaleId}
-              >
-                <AnimaleSingleComponent animale={animale} />
-              </div>
-            );
-          })}
-        </div>
+    <div className="container my-5">
+      <div className="d-flex justify-content-center align-items-center mb-4">
+        <h2>Animali</h2>
       </div>
-    </>
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {animali.map((animale) => {
+          return (
+            <div
+              className="col d-flex justify-content-center"
+              key={animale.animaleId}
+            >
+              <AnimaleSingleComponent animale={animale} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
