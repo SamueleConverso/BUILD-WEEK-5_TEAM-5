@@ -5,14 +5,8 @@ import FormAnimaleSmarrito from "./FormAnimaleSmarrito";
 
 const CreaAnimaleSmarrito = () => {
   const dispatch = useDispatch();
-  const { loading, success } = useSelector((state) => state.animaleSmarrito);
+  const { loading } = useSelector((state) => state.animaleSmarrito);
   const [error, setError] = useState(null);
-
-  if (success) {
-    setTimeout(() => {
-      window.location.href = "/animali-smarriti";
-    }, 2000);
-  }
 
   const handleSubmit = (animaleSmarritoData) => {
     try {
@@ -28,14 +22,7 @@ const CreaAnimaleSmarrito = () => {
   };
 
   return (
-    <div className="container-fluid d-flex justify-content-center">
-      {success && (
-        <div className="alert alert-success">
-          Animale smarrito registrato con successo! Verrai reindirizzato alla
-          lista.
-        </div>
-      )}
-
+    <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
       {error && <div className="alert alert-danger">{error}</div>}
 
       <FormAnimaleSmarrito onSubmit={handleSubmit} isLoading={loading} />

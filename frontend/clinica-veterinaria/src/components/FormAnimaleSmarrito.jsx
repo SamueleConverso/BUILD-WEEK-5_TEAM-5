@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
@@ -38,15 +39,15 @@ const FormAnimaleSmarrito = ({ isEdit = false }) => {
     }
   }, [isEdit, animaleSelezionato]);
 
-  useEffect(() => {
-    if (success && formSubmitted) {
-      const timer = setTimeout(() => {
-        navigate("/clinica/animaliSmarriti");
-      }, 2000);
+  // useEffect(() => {
+  //   if (success && formSubmitted) {
+  //     const timer = setTimeout(() => {
+  //       navigate("/clinica/animaliSmarriti");
+  //     }, 2000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [success, formSubmitted, navigate]);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [success, formSubmitted, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +67,8 @@ const FormAnimaleSmarrito = ({ isEdit = false }) => {
           specie,
           colore,
           microchip,
-          numeroMicrochip
+          numeroMicrochip,
+          navigate
         )
       );
     } else {
@@ -76,7 +78,8 @@ const FormAnimaleSmarrito = ({ isEdit = false }) => {
           specie,
           colore,
           microchip,
-          numeroMicrochip
+          numeroMicrochip,
+          navigate
         )
       );
     }
